@@ -1,0 +1,81 @@
+{
+  "mode": "real",
+  "embedding_model": "nvidia/nemotron-3-embed-1b",
+  "llm_model": "minimaxai/minimax-m3.1-flash",
+  "checks": [
+    {
+      "test": "real_admin_auth_and_demo_auth_disabled",
+      "passed": true
+    },
+    {
+      "test": "patient_cannot_access_admin",
+      "passed": true
+    },
+    {
+      "test": "official_directory_and_live_indexed_sources",
+      "passed": true
+    },
+    {
+      "test": "live_rag_en",
+      "passed": true,
+      "citations": 1,
+      "retrieved_passages": 1,
+      "language_script_present": true,
+      "translation_clinically_validated": false
+    },
+    {
+      "test": "live_rag_hi",
+      "passed": true,
+      "citations": 1,
+      "retrieved_passages": 1,
+      "language_script_present": true,
+      "translation_clinically_validated": false
+    },
+    {
+      "test": "live_rag_or",
+      "passed": true,
+      "citations": 1,
+      "retrieved_passages": 1,
+      "language_script_present": true,
+      "translation_clinically_validated": false
+    },
+    {
+      "test": "chat_not_persisted_without_consent",
+      "passed": true
+    },
+    {
+      "test": "multilingual_emergency_bypass",
+      "passed": true
+    },
+    {
+      "test": "unsupported_question_no_fabricated_citations",
+      "passed": true
+    },
+    {
+      "test": "persisted_chat_ownership_and_delete",
+      "passed": true
+    },
+    {
+      "test": "real_upload_embed_index_delete",
+      "passed": true
+    },
+    {
+      "test": "real_preferences_and_feedback",
+      "passed": true
+    },
+    {
+      "test": "real_resource_create_delete",
+      "passed": true
+    },
+    {
+      "test": "safety_rules_executed",
+      "passed": true,
+      "case_count": 14
+    },
+    {
+      "test": "disposable_account_cleanup",
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

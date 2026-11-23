@@ -1,0 +1,18 @@
+{
+  "mode": "real",
+  "checks": [
+    {
+      "test": "browser_real_supabase_admin_login",
+      "passed": true
+    },
+    {
+      "test": "browser_real_indexed_documents",
+      "passed": true
+    },
+    {
+      "test": "browser_real_grounded_chat",
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}
