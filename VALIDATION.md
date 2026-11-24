@@ -1,3 +1,67 @@
+# Panda companion and motion study — 2026-11-24
+
+Inspected the Bambuk Studio homepage forest and meadow panda scenes in Chrome.
+The motion catalogue and limits of that visual audit are in `MOTION_STUDY.md`.
+Implemented an original Three.js character, ten selectable poses, scroll
+chapters, pointer-following gaze, web chat and task reactions, and a lightweight
+native SVG companion / expression screen.
+
+Executed on the final source:
+
+| Check | Result |
+| --- | --- |
+| Shared contracts Vitest | 53 passed |
+| Web Vitest | 7 passed |
+| Native Jest | 7 passed |
+| Chrome acceptance | 14 passed |
+| Workspace TypeScript / web and native ESLint | Passed |
+| Web production build | Passed |
+| Native arm64 standalone demo APK build | Passed |
+| APK v2 signature / embedded bundle | Verified |
+| Configured server credentials in built clients / source candidates | No matches |
+
+**81 client/shared regression tests passed.** The backend was not modified or
+retested for this animation change. Earlier backend/provider results below are
+historical evidence, not fresh execution in this run.
+
+Chrome tests confirm real WebGL rendering, all ten pose selections, frame
+cessation / resumption on pause, offscreen suspension, scroll-driven poses,
+GPU-context-loss fallback, static OS reduced-motion poses, text-only canvas
+removal, keyboard selection, chat state / emergency reactions, and passport /
+checklist success reactions. Existing multilingual, admin, responsive and
+access-tool workflows also pass. Narrow layouts include 320 pixels and enlarged
+text. Tests use isolated synthetic browser state.
+
+The admin viewport assertion now waits for chart resize completion with a bounded
+poll. A 15-cycle diagnostic observed Recharts' previous SVG width briefly causing
+806 px of document width at a 768 px viewport; it settled to 768 px within 150 ms.
+The original immediate assertion intermittently sampled that intermediate frame.
+No admin production CSS was changed; persistent overflow still fails the check.
+
+Separately captured the real-mode local app in Chrome: all ten 3D poses rendered
+with zero page errors. See `artifacts/companion-validation.json`,
+`artifacts/setu-panda-*.png` and `artifacts/setu-motion-tour.webm`.
+Desktop/mobile-viewport captures are not physical-device performance tests.
+
+The separately loaded 3D chunk is approximately 552 kB minified / 138 kB gzip.
+Vite reports a non-fatal large-chunk advisory; the scene is already dynamically
+imported and text-only mode does not request it. Rollup removes two dependency
+comment annotations from Zod; the build completes successfully.
+
+Rebuilt the standalone Android demo with `scripts/build-android.ps1`:
+`artifacts/SwasthyaSetu-AI-demo-arm64.apk`, 32,380,841 bytes, SHA-256
+`DEAB94EAB5ED444B599D4AAAF374BF181A55CBA026CE5D176B400F327DFCA3B4`.
+APK signing verification passed (v2) and the embedded app bundle is present.
+Compared configured private server/admin credentials against the built web/APK
+assets and 204 Git candidate files: no matches. The structured client result is
+in `artifacts/client-secret-check.json`. Signing keys and APK remain ignored.
+
+Android remains visibly labeled Demo Mode. No physical phone was connected;
+physical-device performance and public hosting remain unverified. The local
+real-mode website/API configuration was preserved.
+
+---
+
 # Greeting handling correction — 2026-11-24
 
 Reproduced the exact live `hii` message returning an evidence refusal. The previous

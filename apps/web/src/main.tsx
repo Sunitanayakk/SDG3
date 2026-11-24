@@ -7,6 +7,7 @@ import { Provider } from "./context";
 import App from "./App";
 import "./styles.css";
 import "./light.css";
+import "./panda.css";
 const client = new QueryClient({
   defaultOptions: {
     queries: { retry: 1, staleTime: 15000, refetchOnWindowFocus: false },

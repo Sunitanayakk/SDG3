@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
 import {
   Accessibility,
-  AudioLines,
   BookOpen,
   Check,
   Ear,
@@ -13,10 +11,10 @@ import {
   Languages,
   MessageCircle,
   ShieldCheck,
-  Sparkles,
   Volume2,
 } from "lucide-react";
-import { useSetu } from "../context";
+import { PandaStage } from "../components/PandaStage";
+import { PandaStory } from "../components/PandaStory";
 
 const paths = [
   {
@@ -59,8 +57,6 @@ const paths = [
 export default function Landing() {
   const [selected, setSelected] = useState(0);
   const path = paths[selected];
-  const reduced = useReducedMotion();
-  const { prefs } = useSetu();
   return (
     <div className="light-home">
       <section className="care-hero">
@@ -109,87 +105,16 @@ export default function Landing() {
             </span>
           </div>
         </div>
-        <motion.div
-          className="care-hero-art"
-          initial={
-            reduced || prefs.reduced_motion ? false : { opacity: 0, y: 25 }
-          }
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75 }}
-        >
-          <div className="art-halo" aria-hidden="true" />
-          <div className="art-grid" aria-hidden="true" />
-          <div className="floating-note note-language">
-            <span className="note-icon lavender">
-              <Languages size={21} />
-            </span>
-            <div>
-              <strong>A familiar language.</strong>
-              <small>English · हिन्दी · ଓଡ଼ିଆ</small>
-            </div>
+        <div className="panda-hero">
+          <span className="panda-hero-note">
+            <Heart size={16} /> A little support. A friendly face.
+          </span>
+          <PandaStage mood="welcome" />
+          <div className="panda-hero-links">
+            <Link to="/app/companion">Meet Setu’s expressions</Link>
+            <Link to="/app/chat">Start a conversation</Link>
           </div>
-          <div className="hero-companion-card">
-            <div className="companion-top">
-              <span className="setu-avatar">
-                <HeartPulse size={24} />
-              </span>
-              <div>
-                <strong>Meet Setu</strong>
-                <small>Your healthcare access companion</small>
-              </div>
-              <span className="mini-flower" aria-hidden="true">
-                ✳
-              </span>
-            </div>
-            <div className="hero-question">
-              How can I make my next visit easier?
-            </div>
-            <div className="hero-answer">
-              <span className="mini-setu">
-                <Sparkles size={17} />
-              </span>
-              <div>
-                <strong>Let’s start with what works for you.</strong>
-                <p>
-                  Create an access card, prepare your questions, and choose how
-                  you want to communicate.
-                </p>
-              </div>
-            </div>
-            <div className="hero-mini-tools">
-              <Link to="/app/passport">
-                <Accessibility size={19} />
-                <span>My access card</span>
-              </Link>
-              <Link to="/app/communicate">
-                <MessageCircle size={19} />
-                <span>Show a message</span>
-              </Link>
-            </div>
-            <div className="hero-card-footer">
-              <ShieldCheck size={14} />
-              Your preferences. Your control.
-            </div>
-          </div>
-          <div className="floating-note note-listen">
-            <span className="note-icon peach">
-              <AudioLines size={23} />
-            </span>
-            <div>
-              <strong>Read it. Hear it. Understand it.</strong>
-              <small>Text is always available.</small>
-            </div>
-            <span className="sound-bars" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
-            </span>
-          </div>
-          <div className="art-heart" aria-hidden="true">
-            <Heart fill="currentColor" size={31} />
-          </div>
-        </motion.div>
+        </div>
       </section>
       <div className="care-values">
         <span>Built for real-life barriers</span>
@@ -210,6 +135,7 @@ export default function Landing() {
           Language
         </span>
       </div>
+      <PandaStory />
       <section id="accessibility" className="care-section access-paths">
         <div className="section-intro">
           <span className="eyebrow">YOUR ACCESS NEEDS COME FIRST</span>

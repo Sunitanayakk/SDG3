@@ -22,6 +22,7 @@ import {
   type ChatMessage,
   type ChatResponse,
   type Language,
+  pandaMoodForChat,
   languages,
 } from "@setu/api-contracts";
 import { api } from "../services";
@@ -35,6 +36,7 @@ import {
 } from "../components/ui";
 import { PreferencesForm } from "../components/Preferences";
 import { ConnectionNotice } from "../components/Connection";
+import { PandaMini } from "../components/PandaStage";
 
 export function PatientHome() {
   const { prefs, t } = useSetu();
@@ -165,6 +167,7 @@ export function Chat({ technical = false }: { technical?: boolean }) {
   const [topK, setTopK] = useState(4);
   const [detail, setDetail] = useState<ChatResponse>();
   const [failed, setFailed] = useState("");
+  const [focused, setFocused] = useState(false);
   const end = useRef<HTMLDivElement>(null);
   useEffect(() => setLang(prefs.language), [prefs.language]);
   const saved = search.get("session");
@@ -315,9 +318,15 @@ export function Chat({ technical = false }: { technical?: boolean }) {
       <div className="chat-shell">
         <header className="chat-header">
           <div className="row">
-            <span className="icon-tile">
-              <Sparkles size={21} />
-            </span>
+            <PandaMini
+              mood={pandaMoodForChat({
+                pending: mutation.isPending,
+                error: mutation.isError,
+                focused,
+                hasReply: !!detail,
+                safety: detail?.safety_level,
+              })}
+            />
             <div>
               <strong>SwasthyaSetu companion</strong>
               <small>{lang.toUpperCase()} · Educational information</small>
@@ -333,9 +342,7 @@ export function Chat({ technical = false }: { technical?: boolean }) {
         >
           {!messages.length && (
             <div className="chat-empty">
-              <div className="empty-orbit">
-                <Sparkles size={35} strokeWidth={1} />
-              </div>
+              <PandaMini mood="welcome" />
               <span className="eyebrow">A LITTLE CLARITY STARTS HERE</span>
               <h2>
                 What’s on <em>your mind?</em>
@@ -459,6 +466,8 @@ export function Chat({ technical = false }: { technical?: boolean }) {
             rows={2}
             placeholder={t.placeholder}
             onChange={(e) => setQuestion(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();

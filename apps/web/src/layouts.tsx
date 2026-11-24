@@ -276,6 +276,7 @@ export function PatientLayout() {
             [t.chat, "/app/chat", MessageSquare],
             [t.resources, "/app/resources", BookOpen],
             ["Access toolkit", "/app/tools", Accessibility],
+            ["Meet Setu", "/app/companion", HeartPulse],
             ["Communication", "/app/communicate", Languages],
             ["Visit planner", "/app/planner", ClipboardList],
             ["Easy-read library", "/app/library", BookOpen],

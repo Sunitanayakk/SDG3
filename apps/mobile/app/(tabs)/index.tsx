@@ -4,6 +4,7 @@ import { router, useFocusEffect } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { type Session } from "@setu/api-contracts";
 import { api } from "../../services/api";
+import { Panda } from "../../components/Panda";
 import { useSetu } from "../../services/context";
 import {
   Badge,
@@ -55,6 +56,9 @@ export default function Home() {
         title={t.welcome}
       />
       <Card>
+        <View style={{ alignItems: "center" }}>
+          <Panda mood="welcome" size={140} />
+        </View>
         <View style={s.icon}>
           <Ionicons name="sparkles-outline" size={24} color="#087f6b" />
         </View>
@@ -69,6 +73,11 @@ export default function Home() {
           label={t.ask}
           icon="arrow-up-outline"
           onPress={() => router.push("/(tabs)/chat")}
+        />
+        <Button
+          label="Meet Setu’s expressions"
+          secondary
+          onPress={() => router.push("/companion")}
         />
       </Card>
       {[

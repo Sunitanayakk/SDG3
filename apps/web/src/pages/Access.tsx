@@ -25,6 +25,7 @@ import {
 } from "@setu/api-contracts";
 import { Modal, PageHeading } from "../components/ui";
 import { useSetu } from "../context";
+import { PandaMini } from "../components/PandaStage";
 
 function download(name: string, content: string) {
   const url = URL.createObjectURL(
@@ -273,7 +274,7 @@ export function Passport() {
           aria-label="Passport preview"
         >
           <div className="passport-head">
-            <Accessibility size={28} />
+            <PandaMini mood={savedNotice ? "celebrate" : "idle"} />
             <span>
               SwasthyaSetu
               <br />
@@ -524,7 +525,18 @@ export function VisitPlanner() {
         </div>
         <section className="tool-panel visit-checklist print-card">
           <div className="row between">
-            <h2>Your preparation checklist</h2>
+            <div className="row">
+              <PandaMini
+                mood={
+                  complete === steps.length
+                    ? "celebrate"
+                    : complete
+                      ? "happy"
+                      : "reading"
+                }
+              />
+              <h2>Your preparation checklist</h2>
+            </div>
             <span className="status success">
               {complete} / {steps.length}
             </span>

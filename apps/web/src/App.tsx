@@ -21,6 +21,7 @@ import {
 const Landing = lazy(() => import("./pages/Landing"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Legal = lazy(() => import("./pages/Legal"));
+const PandaMotion = lazy(() => import("./pages/PandaMotion"));
 import {
   AdminSettings,
   Analytics,
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="communicate" element={<CommunicationBoard />} />
           <Route path="planner" element={<VisitPlanner />} />
           <Route path="library" element={<HealthLibrary />} />
+          <Route path="companion" element={<PandaMotion />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="overview" replace />} />

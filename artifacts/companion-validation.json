@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-11-24T12:42:58.464Z",
+  "renderer": "webgl",
+  "poses": [
+    "idle",
+    "welcome",
+    "curious",
+    "listening",
+    "thinking",
+    "reading",
+    "happy",
+    "celebrate",
+    "concerned",
+    "resting"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    "setu-panda-hero.png",
+    "setu-panda-thinking.png",
+    "setu-panda-reading.png",
+    "setu-panda-curious.png",
+    "setu-panda-mobile-web.png"
+  ],
+  "video": "setu-motion-tour.webm",
+  "note": "Chrome desktop and mobile viewport; not a physical Android device test.",
+  "regressionTests": {
+    "sharedContracts": 53,
+    "web": 7,
+    "native": 7,
+    "chromeAcceptance": 14,
+    "total": 81,
+    "backendRetested": false
+  },
+  "builds": {
+    "web": "passed",
+    "nativeArm64Demo": "passed",
+    "typecheck": "passed",
+    "eslint": "passed",
+    "configuredServerCredentialsAbsent": true,
+    "apkSignatureV2Verified": true,
+    "apkBytes": 32380841,
+    "apkSha256": "DEAB94EAB5ED444B599D4AAAF374BF181A55CBA026CE5D176B400F327DFCA3B4"
+  }
+}

@@ -32,6 +32,7 @@ function Navigator() {
       <Stack.Screen name="preferences" />
       <Stack.Screen name="signin" />
       <Stack.Screen name="access" />
+      <Stack.Screen name="companion" />
     </Stack>
   );
 }

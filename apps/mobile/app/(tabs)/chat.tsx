@@ -14,6 +14,8 @@ import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
 import { Ionicons } from "@expo/vector-icons";
 import type { ChatMessage } from "@setu/api-contracts";
+import { pandaMoodForChat } from "@setu/api-contracts";
+import { Panda } from "../../components/Panda";
 import { api } from "../../services/api";
 import { useSetu } from "../../services/context";
 import {
@@ -34,6 +36,7 @@ export default function Chat() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [failed, setFailed] = useState("");
+  const [focused, setFocused] = useState(false);
   const params = useLocalSearchParams<{ session?: string }>();
   const scroll = useRef<ScrollView>(null);
   useEffect(() => {
@@ -85,6 +88,20 @@ export default function Chat() {
   }
   return (
     <Screen scroll={false}>
+      <View style={{ alignItems: "center", flexDirection: "row", gap: 10 }}>
+        <Panda
+          size={54}
+          mood={pandaMoodForChat({
+            pending: busy,
+            error: !!error,
+            focused,
+            hasReply: messages.some((m) => m.role === "assistant"),
+            safety: messages.filter((m) => m.role === "assistant").at(-1)
+              ?.safety_level,
+          })}
+        />
+        <T style={s.muted}>Setu, by your side.</T>
+      </View>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -317,6 +334,8 @@ export default function Chat() {
               placeholderTextColor="#526a63"
               value={question}
               onChangeText={setQuestion}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
               multiline
               maxLength={4000}
               style={[s.input, { flex: 1, maxHeight: 120, minHeight: 51 }]}

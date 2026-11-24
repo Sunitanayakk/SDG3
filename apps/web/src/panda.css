@@ -1,0 +1,532 @@
+.panda-stage {
+  margin: 0;
+  min-width: 0;
+  position: relative;
+  width: 100%;
+}
+.panda-viewport {
+  position: relative;
+  height: 440px;
+  width: 100%;
+  isolation: isolate;
+  touch-action: pan-y;
+}
+.panda-scene-mount,
+.panda-poster {
+  position: absolute;
+  inset: 0;
+}
+.panda-scene-mount canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.panda-poster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.panda-poster > .panda-avatar {
+  width: min(74%, 310px);
+  height: 93%;
+}
+.panda-stage[data-renderer="webgl"] .panda-poster {
+  opacity: 0;
+  visibility: hidden;
+}
+.panda-halo {
+  position: absolute;
+  inset: 9% 4% 3%;
+  border-radius: 48% 52% 40% 60%;
+  background: radial-gradient(
+    ellipse,
+    #e1efdaaa,
+    #edf6e377 52%,
+    transparent 72%
+  );
+  z-index: -1;
+}
+.panda-stage-caption {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: space-between;
+  margin: 0 18px;
+  padding: 16px 0;
+  border-top: 1px solid #d4e4d7;
+}
+.panda-stage-caption strong {
+  display: block;
+  font:
+    650 0.9rem/1.5 Manrope,
+    Arial,
+    sans-serif;
+  color: #275c46;
+}
+.panda-stage-caption small {
+  display: block;
+  font-size: 0.8125rem;
+  margin-top: 3px;
+  color: #587562;
+}
+.panda-motion-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #b9d1c0;
+  background: #ffffffb8;
+  border-radius: 99px;
+  padding: 10px 13px;
+  min-height: 44px;
+  color: #37624a;
+  font-size: 0.8125rem;
+}
+.panda-motion-toggle:disabled {
+  opacity: 1;
+  color: #526a5a;
+  cursor: default;
+}
+.panda-orbit {
+  position: absolute;
+  color: #a7b487;
+  font-size: 2rem;
+  pointer-events: none;
+  animation: pandaOrbit 8s ease-in-out infinite;
+}
+.orbit-one {
+  top: 12%;
+  right: 9%;
+  color: #bd9dca;
+}
+.orbit-two {
+  bottom: 22%;
+  left: 8%;
+  font-size: 1.5rem;
+  animation-delay: -4s;
+}
+@keyframes pandaOrbit {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-13px) rotate(12deg);
+  }
+}
+.panda-stage[data-paused="true"] .panda-orbit {
+  animation: none;
+}
+.panda-hero {
+  width: 100%;
+  padding: 0 0 10px;
+  background: radial-gradient(ellipse at 50% 45%, #edf6e899, transparent 70%);
+  border-radius: 35px;
+}
+.panda-hero .panda-viewport {
+  height: 460px;
+}
+.panda-hero-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 15px;
+  background: #fff;
+  border: 1px solid #dbe7d9;
+  box-shadow: 0 8px 24px #395b3010;
+  border-radius: 12px;
+  color: #4c755b;
+  font-size: 0.8125rem;
+  position: absolute;
+  top: 36px;
+  left: 0;
+  z-index: 1;
+  transform: rotate(-5deg);
+}
+.panda-hero-links {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 17px;
+}
+.panda-hero-links a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #346c50;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.panda-story {
+  background: linear-gradient(140deg, #f3f8ee, #edf5ef 55%, #f9fbf5);
+  border-block: 1px solid #dce9dc;
+}
+.panda-story-inner {
+  max-width: 1220px;
+  margin: auto;
+  padding: 70px 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 90px;
+  align-items: start;
+}
+.panda-story-sticky {
+  position: sticky;
+  top: 110px;
+  min-width: 0;
+}
+.panda-story h2 {
+  font-size: clamp(2rem, 3vw, 2.9rem);
+  line-height: 1.2;
+  margin-top: 18px;
+}
+.story-panda .panda-viewport {
+  height: 340px;
+}
+.panda-chapter-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.panda-chapter-controls button {
+  border: 1px solid #c4dac8;
+  background: #fff;
+  color: #42664e;
+  min-height: 44px;
+  border-radius: 99px;
+  padding: 10px 13px;
+  font-size: 0.8125rem;
+}
+.panda-chapter-controls button[aria-pressed="true"] {
+  background: #176b50;
+  color: white;
+  border-color: #176b50;
+}
+.panda-chapters article {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 65px 0;
+  opacity: 0.55;
+  transition: opacity 0.6s;
+}
+.panda-chapters article[data-active="true"] {
+  opacity: 1;
+}
+.panda-chapter-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcecd9;
+  width: 63px;
+  height: 63px;
+  color: #3b7753;
+  border-radius: 18px;
+  margin-bottom: 28px;
+}
+.panda-chapters h3 {
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  line-height: 1.18;
+  margin: 18px 0 24px;
+}
+.panda-chapters p {
+  max-width: 410px;
+  font-size: 1rem;
+  margin-bottom: 28px;
+}
+.panda-mini {
+  display: inline-flex;
+  width: 64px;
+  height: 70px;
+  flex-shrink: 0;
+}
+.panda-mini > .panda-avatar {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.panda-vector-body {
+  transform-origin: 150px 300px;
+  animation: pandaBreathe 4s ease-in-out infinite;
+}
+.panda-vector-head {
+  transform-origin: 150px 178px;
+}
+.panda-avatar[data-mood="curious"] .panda-vector-head {
+  transform: rotate(-8deg);
+}
+.panda-avatar[data-mood="thinking"] .panda-vector-head {
+  transform: rotate(7deg);
+}
+.panda-avatar[data-mood="welcome"] .panda-vector-paw-right {
+  transform-origin: 220px 195px;
+  transform: rotate(-135deg);
+  animation: pandaWave 2s ease-in-out infinite;
+}
+.panda-avatar[data-mood="thinking"] .panda-vector-paw-right {
+  transform-origin: 220px 195px;
+  transform: rotate(130deg);
+}
+.panda-vector-eyes {
+  transform-origin: 150px 124px;
+  animation: pandaBlink 5.1s linear infinite;
+}
+.panda-avatar[data-mood="resting"] .panda-vector-eyes,
+.panda-avatar[data-mood="concerned"] .panda-vector-eyes {
+  animation: none;
+}
+@keyframes pandaBlink {
+  0%,
+  91%,
+  97%,
+  100% {
+    transform: scaleY(1);
+  }
+  94% {
+    transform: scaleY(0.08);
+  }
+}
+.panda-avatar[data-mood="celebrate"] .panda-vector-paw-left {
+  transform-origin: 80px 195px;
+  transform: rotate(150deg);
+}
+.panda-avatar[data-mood="celebrate"] .panda-vector-paw-right {
+  transform-origin: 220px 195px;
+  transform: rotate(-150deg);
+}
+.panda-avatar[data-mood="concerned"] .panda-vector-body {
+  animation: none;
+}
+@keyframes pandaBreathe {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.012);
+  }
+}
+@keyframes pandaWave {
+  0%,
+  100% {
+    transform: rotate(-135deg);
+  }
+  25%,
+  75% {
+    transform: rotate(-155deg);
+  }
+  50% {
+    transform: rotate(-125deg);
+  }
+}
+.panda-mini[data-still="true"] * {
+  animation: none !important;
+}
+.chat-empty .panda-mini {
+  width: 118px;
+  height: 130px;
+  margin: 0 auto 20px;
+}
+.panda-lab {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+.panda-lab-stage {
+  position: sticky;
+  top: 110px;
+  padding: 20px;
+  border: 1px solid #d7e5d7;
+  border-radius: 24px;
+  background: linear-gradient(140deg, #f0f7e8, #edf6f0);
+}
+.panda-live-description {
+  padding: 20px 16px;
+  min-height: 120px;
+}
+.panda-live-description strong {
+  color: #2d684c;
+  font-size: 1.1rem;
+}
+.panda-live-description p {
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+.panda-mood-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.panda-mood-list button {
+  text-align: left;
+  padding: 19px;
+  border: 1px solid #d8e5dc;
+  border-radius: 16px;
+  background: #fff;
+  color: #325e48;
+  min-height: 128px;
+}
+.panda-mood-list button[aria-pressed="true"] {
+  background: #eaf4e8;
+  border-color: #7eac88;
+  box-shadow: 0 0 0 1px #7eac88;
+}
+.panda-mood-list span {
+  display: block;
+  font-weight: 650;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.panda-mood-list small {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  margin-top: 9px;
+  color: #5c7662;
+}
+:root[data-text-only="true"] .panda-hero,
+:root[data-text-only="true"] .panda-mini,
+:root[data-text-only="true"] .panda-viewport {
+  display: none;
+}
+:root[data-text-only="true"] .panda-story-inner {
+  grid-template-columns: 1fr;
+}
+:root[data-text-only="true"] .panda-story-sticky {
+  position: static;
+}
+:root[data-text-only="true"] .panda-chapters article {
+  min-height: 0;
+}
+:root[data-motion="true"] .panda-chapters article {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .panda-orbit,
+  .panda-vector-body,
+  .panda-vector-eyes,
+  .panda-vector-paw-right {
+    animation: none !important;
+  }
+  .panda-chapters article {
+    opacity: 1;
+  }
+}
+@media (max-width: 1050px) {
+  .panda-story-inner {
+    gap: 45px;
+  }
+  .panda-hero .panda-viewport {
+    height: 410px;
+  }
+  .panda-stage-caption {
+    gap: 8px;
+    margin-inline: 10px;
+  }
+}
+@media (max-width: 850px) {
+  .panda-story-inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 50px 24px;
+  }
+  .panda-story-sticky {
+    position: static;
+  }
+  .story-panda {
+    max-width: 490px;
+    margin: auto;
+  }
+  .panda-chapters article {
+    min-height: 0;
+    padding: 45px 0;
+    border-top: 1px solid #d1e1d0;
+    opacity: 1;
+  }
+  .panda-hero {
+    max-width: 500px;
+    margin: auto;
+  }
+  .panda-lab {
+    grid-template-columns: 1fr;
+  }
+  .panda-lab-stage {
+    position: static;
+  }
+}
+@media (max-width: 600px) {
+  .panda-hero .panda-viewport {
+    height: 360px;
+  }
+  .panda-hero-note {
+    top: 15px;
+    left: 8px;
+    font-size: 0.75rem;
+  }
+  .panda-stage-caption {
+    margin-inline: 4px;
+  }
+  .panda-stage-caption strong {
+    font-size: 0.85rem;
+  }
+  .panda-motion-toggle {
+    font-size: 0.75rem;
+    padding: 10px;
+  }
+  .panda-motion-toggle span {
+    max-width: 76px;
+  }
+  .panda-hero-links {
+    gap: 15px;
+  }
+  .panda-hero-links a {
+    font-size: 0.8rem;
+  }
+  .panda-lab-stage {
+    padding: 10px;
+  }
+  .panda-lab-stage .panda-viewport {
+    height: 360px;
+  }
+  .panda-mood-list {
+    gap: 9px;
+  }
+  .panda-mood-list button {
+    padding: 15px;
+  }
+  .panda-mood-list small {
+    font-size: 0.75rem;
+  }
+  .panda-story h2 {
+    font-size: 2rem;
+  }
+  .story-panda .panda-viewport {
+    height: 320px;
+  }
+  .chat-header .panda-mini {
+    width: 50px;
+    height: 54px;
+  }
+}
+.panda-hero {
+  position: relative;
+}
+.panda-stage[data-paused="true"] .panda-poster * {
+  animation: none !important;
+}
+.panda-stage[data-paused="true"]
+  .panda-avatar[data-mood="welcome"]
+  .panda-vector-paw-right {
+  transform: rotate(-135deg);
+  transform-origin: 220px 195px;
+}

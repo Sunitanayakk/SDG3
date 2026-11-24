@@ -64,11 +64,11 @@ test("admin demo upload, executed safety rules, preferences and responsive works
   ).toBeVisible();
   for (const width of [320, 390, 768, 1280, 1920]) {
     await page.setViewportSize({ width, height: 900 });
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBeTruthy();
+    // Recharts sizes its SVG in a ResizeObserver callback after viewport layout.
+    // A persistent overflow still fails; allow the chart to finish that resize.
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.scrollWidth))
+      .toBeLessThanOrEqual(width);
   }
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/admin/documents");
