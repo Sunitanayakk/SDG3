@@ -3,6 +3,13 @@ import { Routes, Route, Navigate, Link } from "react-router-dom";
 import { PublicLayout, AdminLayout, PatientLayout } from "./layouts";
 import { Loading } from "./components/ui";
 import {
+  AccessTools,
+  Passport,
+  CommunicationBoard,
+  VisitPlanner,
+  HealthLibrary,
+} from "./pages/Access";
+import {
   AccessibilityPage,
   Chat,
   Emergency,
@@ -41,6 +48,11 @@ export default function App() {
           <Route path="emergency" element={<Emergency />} />
           <Route path="preferences" element={<AccessibilityPage />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="tools" element={<AccessTools />} />
+          <Route path="passport" element={<Passport />} />
+          <Route path="communicate" element={<CommunicationBoard />} />
+          <Route path="planner" element={<VisitPlanner />} />
+          <Route path="library" element={<HealthLibrary />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="overview" replace />} />

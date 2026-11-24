@@ -5,7 +5,7 @@ test("responsive public pages, navigation and chat", async ({ page }) => {
     await page.goto("/");
     await expect(
       page.getByRole("heading", {
-        name: "Healthcare Intelligence, For Everyone.",
+        name: "Better care starts with being understood.",
       }),
     ).toBeVisible();
     const dimensions = await page.evaluate(() => ({

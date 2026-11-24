@@ -48,7 +48,7 @@ import { useSetu } from "../context";
 import { ErrorState, Loading, Modal, PageHeading } from "../components/ui";
 import { PreferencesForm } from "../components/Preferences";
 
-const chartColors = ["#c9b8a0", "#8c7560", "#5d6358", "#515151"];
+const chartColors = ["#087f6b", "#7ab48e", "#a89bcb", "#e0b786"];
 export function Overview() {
   const overview = useQuery({
     queryKey: ["overview"],

@@ -13,9 +13,44 @@ import Home from "../app/(tabs)/index";
 import Chat from "../app/(tabs)/chat";
 import Preferences from "../app/preferences";
 import Emergency from "../app/emergency";
+import AccessToolkit from "../app/access";
+import * as Speech from "expo-speech";
 beforeEach(async () => {
   await AsyncStorage.clear();
   jest.clearAllMocks();
+});
+it("communication board shows a selected message and reads only on action", async () => {
+  render(
+    <SetuProvider>
+      <AccessToolkit />
+    </SetuProvider>,
+  );
+  await waitFor(() => expect(screen.getByText("Communicate")).toBeTruthy());
+  fireEvent.press(screen.getByText("Communicate"));
+  fireEvent.press(screen.getByText("✍ Please write it down."));
+  expect(Speech.speak).not.toHaveBeenCalled();
+  fireEvent.press(screen.getByText("Read message aloud"));
+  expect(Speech.speak).toHaveBeenCalledWith("Please write it down.", {
+    language: "en-IN",
+  });
+});
+it("saves access needs locally only when requested", async () => {
+  render(
+    <SetuProvider>
+      <AccessToolkit />
+    </SetuProvider>,
+  );
+  await waitFor(() =>
+    expect(screen.getByText("Save on this device")).toBeTruthy(),
+  );
+  fireEvent.press(screen.getByLabelText("Hearing"));
+  expect(await AsyncStorage.getItem("setu-access-v1")).toBeNull();
+  fireEvent.press(screen.getByText("Save on this device"));
+  await waitFor(async () =>
+    expect(
+      JSON.parse((await AsyncStorage.getItem("setu-access-v1")) || "{}").needs,
+    ).toEqual(["hearing"]),
+  );
 });
 test("home routes to native chat", async () => {
   render(

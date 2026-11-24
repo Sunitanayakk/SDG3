@@ -1,6 +1,6 @@
 {
   "mode": "real",
-  "embedding_model": "nvidia/nemotron-3-embed-1b",
+  "embedding_model": "nvidia/nemotron-3.5-embed-1b",
   "llm_model": "minimaxai/minimax-m3.1-flash",
   "checks": [
     {

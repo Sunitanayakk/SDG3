@@ -5,7 +5,7 @@
     "scheme": "swasthyasetu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": { "supportsTablet": true },
     "android": {

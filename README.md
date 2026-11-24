@@ -10,6 +10,33 @@ and metrics. Real Mode connects Supabase Auth/PostgreSQL and NVIDIA inference.
 
 ## This workspace's connected setup — 2026-11-21
 
+### Accessibility redesign — 2026-11-24
+
+The web app now uses a white, teal and sage design, animated illustrations and
+responsive reading layouts. Reduced-motion preferences stop decorative animation.
+The same light palette and access toolkit are available in the native app.
+
+- **Accessibility Passport** (/app/passport): select access needs and preferred
+  communication; preview, print or download a handover card. Local saving is opt-in.
+- **Communication Board** (/app/communicate): nine phrases in English, Hindi and
+  Odia, temporary typed messages, a large accessible dialog and device read-aloud.
+- **Visit Planner** (/app/planner): online/clinic preparation checklists adapt to
+  selected access needs. Save progress locally and download the checklist.
+- **Easy-read Library** (/app/library): four short guides with original summaries,
+  official source links, three reading languages, search and read-aloud.
+- **AI chat**: MiniMax remains the generator. The old embedding model disappeared
+  from NVIDIA's current catalog; the replacement **nvidia/nemotron-3.5-embed-1b**
+  was tested and all six reviewed source documents were reindexed at 2048 dimensions.
+  This includes WHO activity, diet and blood-pressure education. Live EN/HI/OR
+  answers and the redesigned browser's WHO-cited answer were verified again.
+
+These tools support communication and service navigation; they do not provide
+diagnosis, sign-language interpretation, appointment booking or live facility
+accessibility verification. New phrase/medical translations need community and
+professional validation. Library pages work without the AI service once loaded;
+a first page load still needs connectivity. Local data is not encrypted; avoid
+personal medical information, especially on shared devices.
+
 The local web app and backend are now in **Real Mode**. The requested administrator
 was created and password sign-in verified. Open **http://localhost:5173/signin?admin=1**.
 Find your email/password in the ignored **backend/.env.admin.local** file; do not
@@ -21,17 +48,17 @@ indexing, preference storage, session ownership/deletion and safety rules passed
 See **artifacts/live-validation.json** and **artifacts/live-web-validation.json**.
 These are synthetic workflow checks; medical translation is not clinically validated.
 
-Start the connected services in separate PowerShell terminals:
-
-```powershell
-cd D:\SDG3\backend
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --no-access-log
-```
+Start the connected website and API together:
 
 ```powershell
 cd D:\SDG3
-npm run web
+npm run dev
 ```
+
+The launcher starts the local API in Real Mode, waits for health, then starts Vite.
+It reuses an already healthy API and stops only processes it owns on Ctrl+C.
+For the default browser Demo Mode it starts Vite alone. Only close project-owned
+servers before relaunching; a conflicting website port is reported explicitly.
 
 The standalone Android APK is **artifacts/SwasthyaSetu-AI-demo-arm64.apk**. It uses
 explicitly labeled Demo Mode and needs no Metro server. A live phone build requires
@@ -275,7 +302,7 @@ cd D:\SDG3\backend
 1. Generate a hosted key on the official
    [NVIDIA model page](https://build.nvidia.com/minimaxai/minimax-m3.1-flash/build).
    Configure NVIDIA_API_KEY server-side. MiniMax inference runs on NVIDIA, not Render.
-2. The configured hosted embeddings use **nvidia/nemotron-3-embed-1b**, native
+2. The configured hosted embeddings use **nvidia/nemotron-3.5-embed-1b**, native
    **2048 dimensions**, at **https://integrate.api.nvidia.com/v1/embeddings**.
    Query/passage input types are explicit. The server NVIDIA key is reused when
    EMBEDDING_API_KEY is blank. Three reviewed official-service navigation summaries

@@ -47,7 +47,7 @@ function configure(input) {
   if (data.embeddings === "nvidia") {
     upsert("backend/.env", {
       EMBEDDING_PROVIDER: "nvidia",
-      EMBEDDING_MODEL: "nvidia/nemotron-3-embed-1b",
+      EMBEDDING_MODEL: "nvidia/nemotron-3.5-embed-1b",
       EMBEDDING_DIMENSIONS: "2048",
       EMBEDDING_BASE_URL: "https://integrate.api.nvidia.com/v1",
     });

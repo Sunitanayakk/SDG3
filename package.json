@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "postinstall": "node scripts/patch-metro.cjs",
-    "dev": "npm run dev -w @setu/web",
-    "web": "npm run dev -w @setu/web",
+    "dev": "node scripts/dev.cjs",
+    "web": "node scripts/dev.cjs",
     "mobile": "npm run start -w @setu/mobile",
     "build": "npm run build -w @setu/web",
     "typecheck": "npm run typecheck --workspaces --if-present",

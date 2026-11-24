@@ -1,539 +1,445 @@
-import { useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import gsap from "gsap";
 import {
-  ArrowUpRight,
-  ArrowDown,
-  ShieldCheck,
-  Globe2,
-  HeartPulse,
+  Accessibility,
   AudioLines,
   BookOpen,
-  Compass,
   Check,
+  Ear,
+  Eye,
+  Heart,
+  HeartPulse,
+  Languages,
+  MessageCircle,
+  ShieldCheck,
   Sparkles,
-  Users,
-  HandHeart,
-  Accessibility,
-  ArrowRight,
+  Volume2,
 } from "lucide-react";
-import { ArrowLink, ModeBadge } from "../components/ui";
-import { NeuralCore } from "../components/NeuralCore";
 import { useSetu } from "../context";
-const features = [
+
+const paths = [
   {
-    Icon: HeartPulse,
-    num: "01",
-    title: "A little understanding.\nA healthier beginning.",
-    name: "Intelligent AI Health Assistant",
-    body: "Ask in your own words. Find understandable healthcare information, with clear limits and thoughtful guidance.",
-    to: "/app/chat",
-    tag: "CONVERSATIONAL INTELLIGENCE",
+    icon: Eye,
+    label: "I need clearer text",
+    title: "A little bigger. A lot clearer.",
+    message:
+      "Adjust text size and contrast. Listen when reading feels difficult.",
+    to: "/app/preferences",
+    action: "Adjust my reading settings",
   },
   {
-    Icon: BookOpen,
-    num: "02",
-    title: "Answers connected\nto their sources.",
-    name: "Trusted Knowledge Through RAG",
-    body: "Go beyond an answer. Explore the documents behind it and understand where your information comes from.",
-    to: "/app/resources",
-    tag: "GROUNDED IN KNOWLEDGE",
+    icon: Ear,
+    label: "I prefer to type",
+    title: "Your words. Your way.",
+    message:
+      "Show a message at reception. Communicate without needing to speak or hear.",
+    to: "/app/communicate",
+    action: "Open communication board",
   },
   {
-    Icon: AudioLines,
-    num: "03",
-    title: "Your language.\nYour way of connecting.",
-    name: "Multilingual Accessibility",
-    body: "English, हिन्दी, ଓଡ଼ିଆ. Adjustable text, contrast, and voice playback help make information more accessible.",
-    to: "/accessibility",
-    tag: "BUILT FOR INCLUSION",
+    icon: Accessibility,
+    label: "I need easier access",
+    title: "Make the next visit easier.",
+    message:
+      "Prepare your access requests before a visit, with a checklist you can bring along.",
+    to: "/app/planner",
+    action: "Plan my next visit",
   },
   {
-    Icon: Compass,
-    num: "04",
-    title: "The next step,\nmade a little clearer.",
-    name: "Healthcare Service Navigation",
-    body: "Find official healthcare portals and public services. Clear directions, without promises of availability.",
-    to: "/app/resources",
-    tag: "A BRIDGE TO CARE",
+    icon: Languages,
+    label: "My language matters",
+    title: "Understanding comes first.",
+    message:
+      "Read short explainers in English, Hindi or Odia, at your own pace.",
+    to: "/app/library",
+    action: "Explore the easy-read library",
   },
 ];
 export default function Landing() {
-  const hero = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { prefs, save } = useSetu();
-  const loc = useLocation();
-  useEffect(() => {
-    if (loc.hash)
-      document.querySelector(loc.hash)?.scrollIntoView({ behavior: "smooth" });
-  }, [loc]);
-  useEffect(() => {
-    if (reduce || prefs.reduced_motion) return;
-    const ctx = gsap.context(
-      () =>
-        gsap.from(".hero-reveal", {
-          opacity: 0,
-          y: 25,
-          stagger: 0.11,
-          duration: 1.2,
-          ease: "power4.out",
-        }),
-      hero,
-    );
-    return () => ctx.revert();
-  }, [reduce, prefs.reduced_motion]);
+  const [selected, setSelected] = useState(0);
+  const path = paths[selected];
+  const reduced = useReducedMotion();
+  const { prefs } = useSetu();
   return (
-    <>
-      <section className="hero section-shell" ref={hero}>
-        <div className="hero-kicker hero-reveal">
-          <span className="tiny-cross">+</span> A BRIDGE TO BETTER HEALTHCARE{" "}
-          <span className="kicker-line" />
-        </div>
-        <div className="hero-top">
-          <div className="hero-copy">
-            <h1 className="hero-reveal">
-              Healthcare
-              <br />
-              Intelligence,
-              <br />
-              <em>For Everyone.</em>
-            </h1>
-            <p className="hero-reveal hero-description">
-              An accessible AI companion connecting people with trustworthy
-              health information through multilingual conversations, intelligent
-              retrieval, and inclusive design.
-            </p>
-            <div className="hero-ctas hero-reveal">
-              <ArrowLink to="/app/chat">Explore AI assistant</ArrowLink>
-              <a className="text-link" href="#how-it-works">
-                Discover how it works
-                <ArrowDown size={16} />
-              </a>
-            </div>
-            <div className="hero-proof hero-reveal">
-              <div className="proof-icon">
-                <ShieldCheck size={17} />
-              </div>
-              <span>
-                Thoughtful by design.
-                <br />
-                <strong>Information. Never diagnosis.</strong>
-              </span>
-              <ModeBadge />
-            </div>
-          </div>
-          <div className="hero-visual">
-            <NeuralCore />
-            <span className="visual-coordinate">01 / CONNECTED CARE</span>
-          </div>
-        </div>
-        <div className="hero-baseline">
-          <span>BUILT FOR EVERY PERSON. EVERY POSSIBILITY.</span>
-          <span>
-            <Globe2 size={15} />
-            ENGLISH <i /> हिन्दी <i /> ଓଡ଼ିଆ
+    <div className="light-home">
+      <section className="care-hero">
+        <div className="care-hero-copy">
+          <span className="care-kicker">
+            <span className="care-kicker-icon">
+              <Heart size={13} />
+            </span>{" "}
+            ACCESSIBLE HEALTHCARE FOR ALL
           </span>
-          <a href="#features" aria-label="Explore features">
-            <ArrowDown size={18} />
-          </a>
-        </div>
-      </section>
-      <div className="trust-strip">
-        <span>RESPONSIBLE INTELLIGENCE</span>
-        <div>
-          <ShieldCheck size={18} />
-          Safety before answers
-        </div>
-        <div>
-          <BookOpen size={18} />
-          Source-grounded guidance
-        </div>
-        <div>
-          <Accessibility size={18} />
-          Accessible by intention
-        </div>
-        <div>
-          <HandHeart size={18} />
-          Free to explore
-        </div>
-      </div>
-      <section id="features" className="section-shell section-space">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">INTELLIGENCE WITH A HUMAN PURPOSE</span>
-            <h2>
-              Good care starts
-              <br />
-              with <em>being understood.</em>
-            </h2>
-          </div>
-          <p>
-            Healthcare can feel complicated.
+          <h1>
+            Better care starts
             <br />
-            Finding your next step shouldn’t.
-          </p>
-        </div>
-        <div className="feature-grid">
-          {features.map(({ Icon, num, title, name, body, to, tag }, i) => (
-            <motion.article
-              initial={
-                reduce || prefs.reduced_motion ? false : { opacity: 0, y: 24 }
-              }
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="feature-card"
-              key={num}
-            >
-              <div className="feature-card-top">
-                <div className="icon-tile">
-                  <Icon size={24} />
-                </div>
-                <span className="card-number">/{num}</span>
-              </div>
-              <span className="eyebrow">{tag}</span>
-              <h3>
-                {title.split("\n").map((line, i) => (
-                  <span key={i}>
-                    {line}
-                    <br />
-                  </span>
-                ))}
-              </h3>
-              <p>{body}</p>
-              <Link
-                to={to}
-                className="feature-action"
-                aria-label={`Explore Feature: ${name}`}
-              >
-                Explore feature{" "}
-                <span>
-                  <ArrowUpRight size={18} />
-                </span>
-              </Link>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-      <section
-        id="how-it-works"
-        className="how-section section-shell section-space"
-      >
-        <div className="how-intro">
-          <span className="eyebrow">FROM A QUESTION TO A CLEARER PATH</span>
-          <h2>
-            Simple steps.
+            with being
             <br />
-            <em>Meaningful support.</em>
-          </h2>
-          <p>
-            Technology works best when it feels simple. Here’s how SwasthyaSetu
-            helps you connect the dots.
-          </p>
-          <ArrowLink to="/app/chat" className="secondary">
-            Start a conversation
-          </ArrowLink>
-          <div className="quiet-art" aria-hidden="true">
-            <span />
-            <Sparkles size={48} strokeWidth={0.7} />
-            <span />
-          </div>
-        </div>
-        <div className="journey">
-          {[
-            [
-              "Ask your question.",
-              "Type naturally in your preferred language. No medical vocabulary required.",
-            ],
-            [
-              "Retrieve trusted information.",
-              "The real-mode pipeline retrieves relevant passages from administrator-approved sources.",
-            ],
-            [
-              "Understand the answer.",
-              "Get plain-language guidance with sources and clear evidence limitations.",
-            ],
-            [
-              "Explore your next step.",
-              "Discover official healthcare services and connect with qualified professionals.",
-            ],
-          ].map(([title, body], i) => (
-            <motion.div
-              className="journey-step"
-              key={title}
-              initial={{ opacity: 0.45 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ amount: 0.8 }}
+            <span>understood.</span>
+            <svg
+              className="heading-swoosh"
+              viewBox="0 0 330 18"
+              aria-hidden="true"
             >
-              <span className="step-number">0{i + 1}</span>
-              <div>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-      <section id="accessibility" className="section-shell section-space">
-        <div className="accessibility-panel">
-          <div>
-            <span className="eyebrow">ACCESS IS NOT AN AFTERTHOUGHT</span>
-            <h2>
-              Different needs.
-              <br />
-              <em>The same dignity.</em>
-            </h2>
-            <p>
-              For a grandparent reading larger text. A family finding
-              information in their language. A person who prefers listening.
-              Built to meet people where they are.
-            </p>
-            <div className="check-list">
-              {[
-                "Adjustable text & high contrast",
-                "Keyboard-friendly navigation",
-                "Text interaction, always available",
-              ].map((x) => (
-                <span key={x}>
-                  <Check size={16} />
-                  {x}
-                </span>
-              ))}
-            </div>
-            <ArrowLink to="/accessibility" className="secondary">
-              Explore accessibility
-            </ArrowLink>
+              <path d="M4 12 Q155 -4 324 9" />
+            </svg>
+          </h1>
+          <p>
+            Health information in your language. Tools that adapt to your needs.
+            A clearer path to care, for every body and every ability.
+          </p>
+          <div className="hero-buttons">
+            <Link className="button" to="/app/chat">
+              <MessageCircle size={19} />
+              Ask Setu AI
+            </Link>
+            <Link className="button secondary" to="/app/tools">
+              Find your access tools
+            </Link>
           </div>
-          <div className="live-preview">
-            <div className="preview-top">
-              <span className="eyebrow">TRY IT. MAKE IT YOURS.</span>
-              <span className="dot-live" />
-            </div>
-            <div className="preview-message">
-              <span className="icon-tile">
-                <HeartPulse />
-              </span>
-              <h3>
-                Care should be
-                <br />
-                easy to understand.
-              </h3>
-              <p>Your preferences, your experience.</p>
-            </div>
-            <div className="preview-controls">
-              <button
-                className={prefs.text_size !== "normal" ? "selected" : ""}
-                aria-pressed={prefs.text_size !== "normal"}
-                onClick={() =>
-                  void save({
-                    ...prefs,
-                    text_size:
-                      prefs.text_size === "normal" ? "large" : "normal",
-                  })
-                }
-              >
-                Aa <span>Large text</span>
-              </button>
-              <button
-                className={prefs.high_contrast ? "selected" : ""}
-                aria-pressed={prefs.high_contrast}
-                onClick={() =>
-                  void save({ ...prefs, high_contrast: !prefs.high_contrast })
-                }
-              >
-                <span className="contrast-circle" />
-                High contrast
-              </button>
-            </div>
-            <span className="caption">
-              Live preview · changes apply across your experience
+          <div className="hero-reassurance">
+            <span>
+              <ShieldCheck size={16} />
+              Source-linked information
+            </span>
+            <span>
+              <Check size={16} />
+              Free to explore
             </span>
           </div>
         </div>
-      </section>
-      <section id="impact" className="section-shell section-space">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">TECHNOLOGY IN SERVICE OF PEOPLE</span>
-            <h2>
-              A small bridge.
-              <br />
-              <em>A shared ambition.</em>
-            </h2>
+        <motion.div
+          className="care-hero-art"
+          initial={
+            reduced || prefs.reduced_motion ? false : { opacity: 0, y: 25 }
+          }
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75 }}
+        >
+          <div className="art-halo" aria-hidden="true" />
+          <div className="art-grid" aria-hidden="true" />
+          <div className="floating-note note-language">
+            <span className="note-icon lavender">
+              <Languages size={21} />
+            </span>
+            <div>
+              <strong>A familiar language.</strong>
+              <small>English · हिन्दी · ଓଡ଼ିଆ</small>
+            </div>
           </div>
-          <p>
-            Aligned with the UN Sustainable
+          <div className="hero-companion-card">
+            <div className="companion-top">
+              <span className="setu-avatar">
+                <HeartPulse size={24} />
+              </span>
+              <div>
+                <strong>Meet Setu</strong>
+                <small>Your healthcare access companion</small>
+              </div>
+              <span className="mini-flower" aria-hidden="true">
+                ✳
+              </span>
+            </div>
+            <div className="hero-question">
+              How can I make my next visit easier?
+            </div>
+            <div className="hero-answer">
+              <span className="mini-setu">
+                <Sparkles size={17} />
+              </span>
+              <div>
+                <strong>Let’s start with what works for you.</strong>
+                <p>
+                  Create an access card, prepare your questions, and choose how
+                  you want to communicate.
+                </p>
+              </div>
+            </div>
+            <div className="hero-mini-tools">
+              <Link to="/app/passport">
+                <Accessibility size={19} />
+                <span>My access card</span>
+              </Link>
+              <Link to="/app/communicate">
+                <MessageCircle size={19} />
+                <span>Show a message</span>
+              </Link>
+            </div>
+            <div className="hero-card-footer">
+              <ShieldCheck size={14} />
+              Your preferences. Your control.
+            </div>
+          </div>
+          <div className="floating-note note-listen">
+            <span className="note-icon peach">
+              <AudioLines size={23} />
+            </span>
+            <div>
+              <strong>Read it. Hear it. Understand it.</strong>
+              <small>Text is always available.</small>
+            </div>
+            <span className="sound-bars" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+              <i />
+            </span>
+          </div>
+          <div className="art-heart" aria-hidden="true">
+            <Heart fill="currentColor" size={31} />
+          </div>
+        </motion.div>
+      </section>
+      <div className="care-values">
+        <span>Built for real-life barriers</span>
+        <span>
+          <Eye size={19} />
+          Visual
+        </span>
+        <span>
+          <Ear size={19} />
+          Hearing
+        </span>
+        <span>
+          <Accessibility size={19} />
+          Mobility
+        </span>
+        <span>
+          <Languages size={19} />
+          Language
+        </span>
+      </div>
+      <section id="accessibility" className="care-section access-paths">
+        <div className="section-intro">
+          <span className="eyebrow">YOUR ACCESS NEEDS COME FIRST</span>
+          <h2>
+            Different needs.
             <br />
-            Development Goals.
+            <em>Equally important.</em>
+          </h2>
+          <p>
+            You shouldn’t have to fit the technology. Start with what makes care
+            easier for you.
           </p>
         </div>
-        <div className="impact-grid">
-          <article className="impact-card">
-            <div className="sdg-number">
-              03
-              <span>
-                GOOD HEALTH
-                <br />& WELL-BEING
-              </span>
-              <HeartPulse />
-            </div>
-            <h3>
-              Make health information
-              <br />
-              more accessible.
-            </h3>
-            <p>
-              Help people understand information and navigate existing services,
-              without replacing professional care.
-            </p>
-            <a
-              href="https://sdgs.un.org/goals/goal3"
-              target="_blank"
-              rel="noreferrer"
-              className="text-link"
-            >
-              Explore SDG 3<ArrowUpRight size={16} />
-            </a>
-          </article>
-          <article className="impact-card">
-            <div className="sdg-number">
-              10
-              <span>
-                REDUCED
-                <br />
-                INEQUALITIES
-              </span>
-              <Users />
-            </div>
-            <h3>
-              Reduce the barriers
-              <br />
-              to understanding.
-            </h3>
-            <p>
-              Design for language, literacy, age and accessibility needs, so
-              more people can take part.
-            </p>
-            <a
-              href="https://sdgs.un.org/goals/goal10"
-              target="_blank"
-              rel="noreferrer"
-              className="text-link"
-            >
-              Explore SDG 10
-              <ArrowUpRight size={16} />
-            </a>
-          </article>
-          <div className="impact-method">
-            <span className="eyebrow">HOW WE MEASURE POTENTIAL</span>
-            <strong>3</strong>
-            <span>interface languages</span>
-            <strong>1</strong>
-            <span>shared mission</span>
-            <p>
-              Prototype scope only. Dashboard metrics are synthetic
-              demonstrations. No clinical outcomes or real-world impact are
-              claimed.
-            </p>
+        <div className="path-demo">
+          <div
+            className="path-options"
+            role="group"
+            aria-label="Explore accessibility support"
+          >
+            {paths.map((p, i) => (
+              <button
+                key={p.label}
+                aria-pressed={i === selected}
+                className={i === selected ? "active" : ""}
+                onClick={() => setSelected(i)}
+              >
+                <p.icon size={21} />
+                {p.label}
+                {i === selected && <Check size={17} />}
+              </button>
+            ))}
+          </div>
+          <div className="path-result" key={selected}>
+            <path.icon size={35} />
+            <h3>{path.title}</h3>
+            <p>{path.message}</p>
+            <Link className="button small" to={path.to}>
+              {path.action}
+            </Link>
           </div>
         </div>
       </section>
-      <section className="section-shell section-space">
-        <div className="center-heading">
-          <span className="eyebrow">ACCESS WITHOUT A PRICE TAG</span>
+      <section id="features" className="care-section feature-section">
+        <div className="section-intro centered">
+          <span className="eyebrow">MORE THAN A CHAT WINDOW</span>
           <h2>
-            For you. For your family.
+            A little support.
             <br />
-            <em>For your community.</em>
+            <em>A world of possibility.</em>
           </h2>
-          <p>No subscription plans. Just a shared starting point.</p>
+          <p>
+            Practical tools for before, during and between healthcare visits.
+          </p>
         </div>
-        <div className="three-grid">
+        <div className="feature-mosaic">
+          <Link to="/app/passport" className="care-feature passport-feature">
+            <span className="feature-icon">
+              <Accessibility />
+            </span>
+            <span className="feature-tag">TAKE YOUR NEEDS WITH YOU</span>
+            <h3>
+              Your Accessibility
+              <br />
+              Passport.
+            </h3>
+            <p>
+              A printable card for the way you prefer to communicate and receive
+              help. Explain your needs without starting over.
+            </p>
+            <div className="mini-passport" aria-hidden="true">
+              <span>
+                <HeartPulse size={18} /> MY ACCESS CARD
+              </span>
+              <strong>Please write it down.</strong>
+              <small>Preferred language: हिन्दी</small>
+              <div>
+                <Check size={15} />
+                Please ask before assisting me.
+              </div>
+            </div>
+            <span className="feature-link">Create my passport</span>
+          </Link>
+          <Link to="/app/communicate" className="care-feature talk-feature">
+            <span className="feature-icon">
+              <MessageCircle />
+            </span>
+            <span className="feature-tag">BE HEARD WITHOUT SPEAKING</span>
+            <h3>The Communication Board.</h3>
+            <p>
+              Tap a useful phrase. Show a large message. Let your device read it
+              aloud.
+            </p>
+            <div className="mini-phrases" aria-hidden="true">
+              <span>✍ Please write it down.</span>
+              <span>♡ I need assistance.</span>
+              <span>◷ Please explain slowly.</span>
+            </div>
+            <span className="feature-link">Find my words</span>
+          </Link>
+          <Link to="/app/planner" className="care-feature">
+            <span className="feature-icon">
+              <Check />
+            </span>
+            <h3>Arrive a little more prepared.</h3>
+            <p>
+              A visit checklist that responds to your access needs. Keep your
+              progress and download the next steps.
+            </p>
+            <span className="feature-link">Build my visit plan</span>
+          </Link>
+          <Link to="/app/library" className="care-feature">
+            <span className="feature-icon">
+              <BookOpen />
+            </span>
+            <h3>Understand, at your pace.</h3>
+            <p>
+              Short, source-linked health explainers. Read in three languages or
+              listen with a device voice.
+            </p>
+            <span className="feature-link">Open the easy-read library</span>
+          </Link>
+        </div>
+      </section>
+      <section id="how-it-works" className="care-section care-steps">
+        <div className="section-intro">
+          <span className="eyebrow">A CLEARER PATH TO CARE</span>
+          <h2>
+            Less friction.
+            <br />
+            <em>More understanding.</em>
+          </h2>
+        </div>
+        <div className="care-steps-grid">
           {[
             [
-              HeartPulse,
-              "Individuals",
-              "Free healthcare information guidance",
-              "/app/chat",
+              Languages,
+              "Make it feel familiar",
+              "Choose your language, reading size and how you prefer to communicate.",
             ],
             [
-              Users,
-              "Families",
-              "Assisted access and shared understanding",
-              "/app/preferences",
+              MessageCircle,
+              "Find a useful next step",
+              "Ask the assistant, read a short guide or prepare for a consultation.",
             ],
             [
-              HandHeart,
-              "Community health workers",
-              "Guided navigation to official services",
-              "/app/resources",
+              Heart,
+              "Bring your needs along",
+              "Take your access card and checklist to a real healthcare professional.",
             ],
-          ].map(([Icon, title, body, to]) => {
-            const I = Icon as typeof HeartPulse;
+          ].map(([Icon, title, body]) => {
+            const I = Icon as typeof Heart;
             return (
-              <article className="glass access-card" key={String(title)}>
-                <I size={27} />
-                <h3>{title as string}</h3>
-                <p>{body as string}</p>
-                <ArrowLink to={String(to)} className="secondary">
-                  Explore free
-                  <ArrowUpRight />
-                </ArrowLink>
+              <article key={String(title)}>
+                <span>
+                  <I size={25} />
+                </span>
+                <h3>{String(title)}</h3>
+                <p>{String(body)}</p>
               </article>
             );
           })}
         </div>
       </section>
-      <section className="mission section-shell section-space">
-        <span className="eyebrow">THE REASON BEHIND THE BRIDGE</span>
-        <h2>
-          Not everyone has the same access.
-          <br />
-          <em>Everyone deserves a starting point.</em>
-        </h2>
-        <div className="three-grid">
-          {[
-            [
-              "01 / THE PROBLEM",
-              "Healthcare is hard to navigate.",
-              "Distance, unfamiliar language, and inaccessible interfaces can make finding trustworthy information difficult.",
-            ],
-            [
-              "02 / THE APPROACH",
-              "Understanding comes first.",
-              "Combine accessible design, careful AI and evidence retrieval to make the next step easier to understand.",
-            ],
-            [
-              "03 / THE AMBITION",
-              "More people, included.",
-              "Support human decisions and existing healthcare services. Build responsibly, test honestly, and learn from the people we hope to help.",
-            ],
-          ].map(([label, title, body]) => (
-            <article key={label}>
-              <span className="eyebrow">{label}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
-          ))}
+      <section id="impact" className="care-section care-impact">
+        <div>
+          <span className="sdg-square">
+            3
+            <small>
+              GOOD HEALTH
+              <br />
+              AND WELL-BEING
+            </small>
+            <HeartPulse size={30} />
+          </span>
+          <span className="eyebrow">
+            CHALLENGE 08 · ACCESSIBLE HEALTHCARE FOR ALL
+          </span>
+          <h2>
+            Access is part
+            <br />
+            <em>of good health.</em>
+          </h2>
+          <p>
+            Designed around SDG 3 and reducing barriers to care. Every feature
+            helps someone see, hear, understand or navigate health information
+            more easily.
+          </p>
+          <p className="caption">
+            A working prototype. No claims of clinical outcomes or guaranteed
+            service availability.
+          </p>
+        </div>
+        <div className="impact-quote">
+          <span aria-hidden="true">“</span>
+          <h3>
+            Care should begin with
+            <br />
+            “How can we help?”
+            <br />
+            Not “Can you use this?”
+          </h3>
+          <div className="row">
+            <ShieldCheck size={21} />
+            <p>
+              General health education.
+              <br />
+              Human care stays at the centre.
+            </p>
+          </div>
         </div>
       </section>
-      <section className="closing section-shell">
-        <span className="eyebrow">
-          INTELLIGENT CARE. ACCESSIBLE TO EVERYONE.
-        </span>
+      <section className="care-closing">
+        <span className="eyebrow">A BRIDGE TO UNDERSTANDING</span>
         <h2>
-          Your next step
+          Care that meets you
           <br />
-          can start <em>with a question.</em>
+          <em>where you are.</em>
         </h2>
-        <ArrowLink to="/app/chat">Meet your AI companion</ArrowLink>
-        <p>Free to explore. Thoughtfully built. Always human at heart.</p>
-        <Link to="/feedback" className="text-link">
-          Help shape the bridge
-          <ArrowRight size={16} />
-        </Link>
+        <p>Start with a question, a preference, or one small next step.</p>
+        <div className="hero-buttons">
+          <Link className="button" to="/app/chat">
+            <MessageCircle size={19} />
+            Start a conversation
+          </Link>
+          <Link className="button secondary" to="/app/tools">
+            <Volume2 size={18} />
+            Explore the access toolkit
+          </Link>
+        </div>
       </section>
-    </>
+    </div>
   );
 }

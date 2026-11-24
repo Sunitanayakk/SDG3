@@ -22,7 +22,7 @@ export function T({ children, style, ...props }: TextProps) {
       {...props}
       style={[
         {
-          color: prefs.high_contrast ? "#fff3df" : colors.text,
+          color: prefs.high_contrast ? "#123b28" : colors.text,
           fontSize: 15 * scale,
           lineHeight: 25 * scale,
         },
@@ -84,7 +84,7 @@ export function Card({
   const { prefs } = useSetu();
   return (
     <View
-      style={[s.card, prefs.high_contrast && { borderColor: "#c9b8a0" }, style]}
+      style={[s.card, prefs.high_contrast && { borderColor: "#087f6b" }, style]}
     >
       {children}
     </View>
@@ -115,14 +115,14 @@ export function Button({
       style={({ pressed }) => [
         s.button,
         secondary && s.secondary,
-        danger && { backgroundColor: "#ffb4ac" },
+        danger && { backgroundColor: "#ae3333" },
         pressed && { opacity: 0.75 },
         disabled && { opacity: 0.5 },
       ]}
     >
       <T
         style={{
-          color: secondary ? colors.goldLight : "#15120e",
+          color: secondary ? colors.goldLight : "#ffffff",
           fontWeight: "600",
           fontSize: 14,
           flexShrink: 1,
@@ -134,7 +134,7 @@ export function Button({
         <Ionicons
           name={icon}
           size={18}
-          color={secondary ? colors.goldLight : "#15120e"}
+          color={secondary ? colors.goldLight : "#ffffff"}
         />
       )}
     </Pressable>
@@ -174,7 +174,7 @@ export function ErrorBox({
   const { t } = useSetu();
   return (
     <View accessibilityRole="alert" style={s.error}>
-      <T style={{ color: "#ffc5ba" }}>{message}</T>
+      <T style={{ color: "#9f3c2f" }}>{message}</T>
       <T style={s.muted}>{t.network}</T>
       {onRetry && <Button label={t.retry} onPress={onRetry} secondary />}
     </View>
@@ -206,17 +206,17 @@ export const s = StyleSheet.create({
     letterSpacing: -1,
     marginBottom: 14,
   },
-  muted: { color: "#b6aea1", fontSize: 13, lineHeight: 23 },
+  muted: { color: "#526a63", fontSize: 13, lineHeight: 23 },
   card: {
-    backgroundColor: "#141413",
-    borderColor: "#ffffff19",
+    backgroundColor: "#ffffff",
+    borderColor: "#d8e6dd",
     borderWidth: 1,
     borderRadius: 24,
     padding: 24,
     gap: 15,
   },
   button: {
-    backgroundColor: "#eae2d6",
+    backgroundColor: "#087f6b",
     borderRadius: 99,
     minHeight: 51,
     paddingHorizontal: 22,
@@ -229,7 +229,7 @@ export const s = StyleSheet.create({
   secondary: {
     backgroundColor: "transparent",
     borderWidth: 1,
-    borderColor: "#a78b7166",
+    borderColor: "#b6d4c2",
   },
   badge: {
     flexDirection: "row",
@@ -237,7 +237,7 @@ export const s = StyleSheet.create({
     alignSelf: "flex-start",
     gap: 7,
     borderWidth: 1,
-    borderColor: "#a78b7144",
+    borderColor: "#cce3d5",
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 99,
@@ -255,21 +255,21 @@ export const s = StyleSheet.create({
     gap: 9,
     paddingVertical: 14,
   },
-  noticeText: { fontSize: 11, lineHeight: 20, color: "#aaa193", flex: 1 },
+  noticeText: { fontSize: 11, lineHeight: 20, color: "#526a63", flex: 1 },
   error: {
     borderWidth: 1,
-    borderColor: "#ffb4ac55",
-    backgroundColor: "#291715",
+    borderColor: "#e8b4a9",
+    backgroundColor: "#fff2ee",
     borderRadius: 18,
     padding: 20,
     gap: 14,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#a78b7140",
-    backgroundColor: "#191816",
+    borderColor: "#c5daca",
+    backgroundColor: "#f1f7f3",
     borderRadius: 12,
-    color: "#f5f5f4",
+    color: "#183c35",
     padding: 15,
     fontSize: 15,
     minHeight: 49,
@@ -282,10 +282,10 @@ export const s = StyleSheet.create({
     height: 46,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: "#a78b7122",
-    backgroundColor: "#a78b7110",
+    borderColor: "#dcece2",
+    backgroundColor: "#f1f7f3",
     alignItems: "center",
     justifyContent: "center",
   },
-  divider: { height: 1, backgroundColor: "#ffffff16", marginVertical: 6 },
+  divider: { height: 1, backgroundColor: "#dbe9e0", marginVertical: 6 },
 });

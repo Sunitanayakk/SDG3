@@ -29,7 +29,7 @@ services:
       - key: EMBEDDING_PROVIDER
         value: nvidia
       - key: EMBEDDING_MODEL
-        value: nvidia/nemotron-3-embed-1b
+        value: nvidia/nemotron-3.5-embed-1b
       - key: EMBEDDING_DIMENSIONS
         value: "2048"
       - key: EMBEDDING_BASE_URL

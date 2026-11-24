@@ -1,13 +1,13 @@
 export const colors = {
-  background: "#0a0a0a",
-  surface: "#111111",
-  elevated: "#171717",
-  gold: "#a78b71",
-  goldLight: "#c9b8a0",
-  goldHover: "#e8d5b7",
-  text: "#f5f5f4",
-  muted: "#a3a3a3",
-  emergency: "#ffb4ac",
-  border: "rgba(255,255,255,0.1)",
+  background: "#f7fbf9",
+  surface: "#ffffff",
+  elevated: "#eef6f2",
+  gold: "#087f6b",
+  goldLight: "#087f6b",
+  goldHover: "#075a4d",
+  text: "#183c35",
+  muted: "#526a63",
+  emergency: "#ae3333",
+  border: "rgba(19,78,64,0.15)",
 };
 export const radius = { card: 24, large: 48, pill: 999 };

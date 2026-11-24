@@ -10,6 +10,7 @@ import {
 import { useSetu } from "../context";
 import { api } from "../services";
 import { languages, type Language } from "@setu/api-contracts";
+import { useConnection } from "./Connection";
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
@@ -26,10 +27,17 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   );
 }
 export function ModeBadge() {
+  const connection = useConnection();
   return (
     <span className="mode-badge">
       <i />
-      {api.mode === "demo" ? "DEMO ACTIVE" : "REAL MODE · CONNECTION UNCHECKED"}
+      {api.mode === "demo"
+        ? "DEMO MODE"
+        : connection.isError
+          ? "SERVICE OFFLINE"
+          : connection.isSuccess
+            ? "LIVE SERVICE"
+            : "CHECKING SERVICE"}
     </span>
   );
 }

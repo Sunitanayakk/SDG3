@@ -44,7 +44,7 @@ export default function Resources() {
       <TextInput
         accessibilityLabel="Search resources"
         placeholder="Search healthcare services…"
-        placeholderTextColor="#a99e8c"
+        placeholderTextColor="#526a63"
         value={q}
         onChangeText={setQ}
         style={s.input}

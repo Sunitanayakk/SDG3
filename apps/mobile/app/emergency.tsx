@@ -23,8 +23,8 @@ export default function Emergency() {
     <Screen>
       <Button label={t.back} secondary onPress={() => router.back()} />
       <Heading eyebrow="PLEASE SEEK IMMEDIATE HELP" title={t.emergency} />
-      <Card style={{ backgroundColor: "#271615", borderColor: "#ffb4ac66" }}>
-        <T style={{ fontSize: 22, lineHeight: 32, color: "#ffd0c5" }}>
+      <Card style={{ backgroundColor: "#fff2ee", borderColor: "#e8b4a9" }}>
+        <T style={{ fontSize: 22, lineHeight: 32, color: "#9f3c2f" }}>
           If you think this is an emergency, seek professional help now.
         </T>
         <T>{emergencyText[prefs.language]}</T>

@@ -18,6 +18,8 @@ import {
   Accessibility,
   CircleHelp,
   Home,
+  ClipboardList,
+  Languages,
 } from "lucide-react";
 import {
   Brand,
@@ -273,6 +275,10 @@ export function PatientLayout() {
             [t.home, "/app", Home],
             [t.chat, "/app/chat", MessageSquare],
             [t.resources, "/app/resources", BookOpen],
+            ["Access toolkit", "/app/tools", Accessibility],
+            ["Communication", "/app/communicate", Languages],
+            ["Visit planner", "/app/planner", ClipboardList],
+            ["Easy-read library", "/app/library", BookOpen],
             [t.profile, "/app/profile", Settings],
           ].map(([title, to, Icon]) => {
             const I = Icon as typeof Home;

@@ -41,17 +41,22 @@ export default function Home() {
           onPress={() => router.push("/emergency")}
           style={{ padding: 12 }}
         >
-          <Ionicons name="heart-outline" size={23} color="#ffb4ac" />
+          <Ionicons name="heart-outline" size={23} color="#ae3333" />
         </Pressable>
       </View>
       <Badge />
+      <Button
+        label="Open access toolkit"
+        secondary
+        onPress={() => router.push("/access")}
+      />
       <Heading
         eyebrow={"HELLO, " + prefs.display_name.toUpperCase()}
         title={t.welcome}
       />
       <Card>
         <View style={s.icon}>
-          <Ionicons name="sparkles-outline" size={24} color="#c9b8a0" />
+          <Ionicons name="sparkles-outline" size={24} color="#087f6b" />
         </View>
         <T style={{ fontSize: 28, lineHeight: 36 }}>
           A little clarity.{"\n"}A thoughtful next step.
@@ -103,14 +108,14 @@ export default function Home() {
               <Ionicons
                 name={icon as "library-outline"}
                 size={22}
-                color={path === "/emergency" ? "#ffb4ac" : "#c9b8a0"}
+                color={path === "/emergency" ? "#ae3333" : "#087f6b"}
               />
             </View>
             <View style={{ flex: 1 }}>
               <T style={{ fontSize: 15, fontWeight: "500" }}>{title}</T>
               <T style={s.muted}>{body}</T>
             </View>
-            <Ionicons name="arrow-forward" size={17} color="#c9b8a0" />
+            <Ionicons name="arrow-forward" size={17} color="#087f6b" />
           </Card>
         </Pressable>
       ))}

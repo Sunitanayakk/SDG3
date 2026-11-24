@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     supabase_anon_key: str = ""
     supabase_service_role_key: str = ""
     embedding_provider: str = "nvidia"
-    embedding_model: str = "nvidia/nemotron-3-embed-1b"
+    embedding_model: str = "nvidia/nemotron-3.5-embed-1b"
     embedding_dimensions: int = 2048
     embedding_base_url: str = "https://integrate.api.nvidia.com/v1"
     embedding_api_key: str = ""

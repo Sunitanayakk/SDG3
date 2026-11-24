@@ -89,7 +89,7 @@ export default function Profile() {
           multiline
           maxLength={2000}
           placeholder="What could make this easier to use?"
-          placeholderTextColor="#aaa092"
+          placeholderTextColor="#526a63"
           style={[s.input, { minHeight: 100 }]}
         />
         <Button

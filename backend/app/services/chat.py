@@ -15,6 +15,12 @@ MISSING = {
     "or": "ଏହି ପ୍ରଶ୍ନର ଉତ୍ତର ପାଇଁ ଯଥେଷ୍ଟ ଯାଞ୍ଚିତ ତଥ୍ୟ ନାହିଁ। ଦୟାକରି ଯୋଗ୍ୟ ସ୍ୱାସ୍ଥ୍ୟ ପେଶାଦାରଙ୍କ ସହ କଥା ହୁଅନ୍ତୁ।",
 }
 
+WELCOME = {
+    "en": "Hello, I’m Setu. I can help explain source-linked health information and access to services. Try asking about eSanjeevani, healthy eating or blood pressure. You can also use the Accessibility Passport, Communication Board and Visit Planner without AI. I cannot diagnose or prescribe medication.",
+    "hi": "नमस्ते! मैं स्वास्थ्य जानकारी और सेवाओं तक पहुँच समझने में सहायता कर सकता हूँ। eSanjeevani, भोजन या रक्तचाप के बारे में पूछें। मैं निदान या दवा की खुराक नहीं बताता।",
+    "or": "ନମସ୍କାର! ମୁଁ ସ୍ୱାସ୍ଥ୍ୟ ତଥ୍ୟ ଓ ସେବା ବିଷୟରେ ବୁଝିବାରେ ସହାୟତା କରିପାରିବି। eSanjeevani, ଖାଦ୍ୟ କିମ୍ବା ରକ୍ତଚାପ ବିଷୟରେ ପଚାରନ୍ତୁ। ମୁଁ ରୋଗ ନିର୍ଣ୍ଣୟ କିମ୍ବା ଔଷଧ ପରାମର୍ଶ ଦିଏ ନାହିଁ।",
+}
+
 
 async def respond(db, req, user=None, technical=False):
     start = time.perf_counter()
@@ -25,6 +31,9 @@ async def respond(db, req, user=None, technical=False):
         reply = EMERGENCY[req.language]
     elif level in {"restricted", "injection"}:
         reply = RESTRICTED[req.language] if level == "restricted" else MISSING[req.language]
+    elif req.message.strip().lower().strip("!?. ") in {"hi", "hello", "hey", "नमस्ते", "नमस्कार", "ନମସ୍କାର"}:
+        # Application introduction, not a generated medical answer.
+        reply = WELCOME[req.language]
     elif settings().demo_mode:
         t = req.message.lower()
         if any(word in t for word in ["doctor", "online", "डॉक्टर", "चिकित्सक", "ଡାକ୍ତର", "ଅନଲାଇନ"]):

@@ -94,7 +94,7 @@ export default function Chat() {
           style={{
             padding: 20,
             borderBottomWidth: 1,
-            borderBottomColor: "#ffffff18",
+            borderBottomColor: "#dbe9e0",
             gap: 12,
           }}
         >
@@ -113,7 +113,7 @@ export default function Chat() {
               }}
               style={{ padding: 10 }}
             >
-              <Ionicons name="add" color="#c9b8a0" size={24} />
+              <Ionicons name="add" color="#087f6b" size={24} />
             </Pressable>
           </View>
           <Badge />
@@ -172,7 +172,7 @@ export default function Chat() {
               <View
                 style={[s.icon, { width: 70, height: 70, borderRadius: 35 }]}
               >
-                <Ionicons name="sparkles-outline" size={33} color="#c9b8a0" />
+                <Ionicons name="sparkles-outline" size={33} color="#087f6b" />
               </View>
               <T style={{ fontSize: 28, lineHeight: 37, textAlign: "center" }}>
                 What’s on your mind?
@@ -203,12 +203,12 @@ export default function Chat() {
                 padding: 20,
                 backgroundColor:
                   m.safety_level === "emergency"
-                    ? "#321918"
+                    ? "#fff2ee"
                     : m.role === "user"
-                      ? "#211d17"
-                      : "#161614",
+                      ? "#eaf5ee"
+                      : "#ffffff",
                 borderColor:
-                  m.safety_level === "emergency" ? "#ffb4ac66" : "#a78b7130",
+                  m.safety_level === "emergency" ? "#e8b4a9" : "#d4e5d9",
               }}
             >
               <T style={s.eyebrow}>
@@ -234,7 +234,7 @@ export default function Chat() {
                   onPress={() => c.url && void Linking.openURL(c.url)}
                   style={{
                     borderTopWidth: 1,
-                    borderTopColor: "#ffffff18",
+                    borderTopColor: "#dbe9e0",
                     paddingTop: 12,
                     gap: 6,
                   }}
@@ -259,7 +259,7 @@ export default function Chat() {
                     }
                     style={{ padding: 10 }}
                   >
-                    <Ionicons name="copy-outline" size={17} color="#c9b8a0" />
+                    <Ionicons name="copy-outline" size={17} color="#087f6b" />
                   </Pressable>
                   {prefs.voice && (
                     <Pressable
@@ -283,7 +283,7 @@ export default function Chat() {
                       <Ionicons
                         name="volume-medium-outline"
                         size={20}
-                        color="#c9b8a0"
+                        color="#087f6b"
                       />
                     </Pressable>
                   )}
@@ -307,14 +307,14 @@ export default function Chat() {
             paddingHorizontal: 17,
             paddingTop: 10,
             borderTopWidth: 1,
-            borderTopColor: "#ffffff15",
+            borderTopColor: "#dbe9e0",
           }}
         >
           <View style={{ ...s.row, alignItems: "flex-end", gap: 9 }}>
             <TextInput
               accessibilityLabel={t.ask}
               placeholder={t.placeholder}
-              placeholderTextColor="#aaa092"
+              placeholderTextColor="#526a63"
               value={question}
               onChangeText={setQuestion}
               multiline
@@ -328,13 +328,13 @@ export default function Chat() {
               disabled={busy || !question.trim()}
               onPress={() => void send(question)}
               style={{
-                backgroundColor: "#e6d6bd",
+                backgroundColor: "#087f6b",
                 borderRadius: 15,
                 padding: 15,
                 opacity: busy || !question.trim() ? 0.5 : 1,
               }}
             >
-              <Ionicons name="arrow-up" size={22} color="#17120c" />
+              <Ionicons name="arrow-up" size={22} color="#ffffff" />
             </Pressable>
           </View>
           <Notice />

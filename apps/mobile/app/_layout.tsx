@@ -8,7 +8,7 @@ export default function Layout() {
   return (
     <SafeAreaProvider>
       <SetuProvider>
-        <StatusBar style="light" />
+        <StatusBar style="dark" />
         <Navigator />
       </SetuProvider>
     </SafeAreaProvider>
@@ -21,7 +21,7 @@ function Navigator() {
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: "#0a0a0a" },
+        contentStyle: { backgroundColor: "#f7fbf9" },
         animation: prefs.reduced_motion || systemReduced ? "none" : "fade",
       }}
     >
@@ -31,6 +31,7 @@ function Navigator() {
       <Stack.Screen name="emergency" />
       <Stack.Screen name="preferences" />
       <Stack.Screen name="signin" />
+      <Stack.Screen name="access" />
     </Stack>
   );
 }

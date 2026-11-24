@@ -34,6 +34,7 @@ import {
   PageHeading,
 } from "../components/ui";
 import { PreferencesForm } from "../components/Preferences";
+import { ConnectionNotice } from "../components/Connection";
 
 export function PatientHome() {
   const { prefs, t } = useSetu();
@@ -68,6 +69,11 @@ export function PatientHome() {
         </div>
       </Link>
       <div className="three-grid patient-quick">
+        <Link className="glass" to="/app/tools">
+          <Accessibility />
+          <h3>Your access toolkit</h3>
+          <p>Passport, communication board and a personalised visit plan.</p>
+        </Link>
         {[
           [
             BookOpen,
@@ -142,14 +148,16 @@ export function PatientHome() {
 
 const suggestions = [
   "How can I access a doctor online?",
-  "How can I use large text?",
-  "Where can I find trusted sources?",
+  "Why is checking blood pressure important?",
+  "What are the basics of a healthy diet?",
 ];
 export function Chat({ technical = false }: { technical?: boolean }) {
   const { prefs, t, notify } = useSetu();
   const queryClient = useQueryClient();
   const [search, setSearch] = useSearchParams();
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState(
+    search.get("question")?.slice(0, 4000) || "",
+  );
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [sessionId, setSessionId] = useState<string>();
   const [lang, setLang] = useState<Language>(prefs.language);
@@ -264,6 +272,7 @@ export function Chat({ technical = false }: { technical?: boolean }) {
           </button>
         }
       />
+      <ConnectionNotice />
       {technical && (
         <div className="glass console-controls">
           <label>
@@ -407,12 +416,12 @@ export function Chat({ technical = false }: { technical?: boolean }) {
                     <Copy size={14} />
                     {t.copy}
                   </button>
-                  {prefs.voice && (
+                  {
                     <button onClick={() => speak(m.content)}>
                       <Volume2 size={14} />
                       {t.read}
                     </button>
-                  )}
+                  }
                 </div>
               )}
             </article>

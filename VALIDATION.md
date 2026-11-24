@@ -1,3 +1,78 @@
+# Accessibility redesign and chatbot repair — 2026-11-24
+
+The white/teal web redesign and native light palette are implemented. Added the
+Accessibility Passport, Communication Board, Visit Planner and Easy-read Library
+on the web, plus a native Access Toolkit screen using shared data and logic.
+These are functioning local workflows; no real appointment booking is claimed.
+
+## Chatbot repair
+
+Both local servers were stopped. In addition, NVIDIA no longer listed the old
+nvidia/nemotron-3-embed-1b model. Its embedding request failed before inference.
+MiniMax itself still worked (live provider smoke check: 2.37 seconds).
+
+Replaced embeddings with nvidia/nemotron-3.5-embed-1b, confirmed HTTP 200 and 2048
+returned dimensions, then reindexed all six reviewed guides. The existing database
+shape is unchanged. Added three original WHO-based summaries reviewed today:
+physical activity, healthy diet and hypertension. No patient records were added.
+
+The full live workflow passed again in English, Hindi and Odia, including real
+JWT authorization, retrieved citations, ownership, upload/index/delete, feedback
+and all 14 safety-rule cases. See artifacts/live-validation.json. A real Chrome
+sign-in and an answer citing the new WHO blood-pressure guide also passed; see
+artifacts/live-web-validation.json. Provider speed/availability is not guaranteed.
+
+The npm run dev launcher now starts both local services in Real Mode, waits for
+API health and stops only processes it owns. Demo Mode runs without a backend.
+The UI reports disconnected service status and offers the library/access tools.
+Greeting replies explain app capabilities without inventing sources. Chat
+read-aloud is directly available on each assistant response.
+
+## Current executed checks
+
+| Check | Result |
+| --- | --- |
+| Backend pytest | 47 passed |
+| Shared contracts Vitest | 13 passed |
+| Web Vitest | 7 passed |
+| Native Jest | 6 passed |
+| Chrome acceptance | 7 passed |
+| TypeScript, web/native ESLint, backend Ruff | Passed |
+| Web production build | Passed |
+| Native arm64 standalone demo APK build | Passed |
+| APK signature / embedded Hermes bundle | Verified |
+| Configured server secrets in built clients | No matches |
+
+**80 automated regression tests passed**, separate from live vendor checks.
+The browser suite verifies passport opt-in storage/export, multilingual board
+selection and temporary custom messages, large-message dialog, checklist
+adaptation and persistence, library search/Odia reading/source links, old admin
+workflows, widths 320–1920 and extra-large text at 320 pixels. Visual inspection
+covered the white landing page and access toolkit. Native tests cover explicit
+speech actions and opt-in access-data storage; OS speech/share boundaries are
+not physical-device validation.
+
+The updated APK is artifacts/SwasthyaSetu-AI-demo-arm64.apk (about 31 MiB).
+SHA-256: 5F876A6A3461566D201A064E6964FB8304BDFB0E1453C68AE96BB5CD734DC2E4
+It remains labeled Demo Mode. A live phone build needs a deployed HTTPS API.
+
+## Practical limits
+
+Passport/checklist storage is browser/device-local, opt-in and not encrypted.
+Custom board messages are transient. Text export, printing and sharing happen
+only on deliberate user action. Avoid personal medical data on shared devices.
+Library summaries do not require the AI service, but the first page load still
+requires connectivity. Offline installation/service-worker caching is not claimed.
+Device voices vary, and Hindi/Odia phrase and medical translations require review.
+The text board does not translate sign language. Visit plans request access
+arrangements; they do not verify facilities or make appointments. Physical-device,
+screen-reader and clinical evaluations and public hosting remain outstanding.
+
+The sections below are historical results from 21 November, before this update.
+Their older model, test totals, APK hash and remote-repository status are superseded.
+
+---
+
 # Executed verification — 2026-11-21
 
 Windows / PowerShell, Node 22.19, Python 3.13.7, Expo SDK 54 / React Native 0.81.5.

@@ -41,7 +41,9 @@ const credentials = require("dotenv").parse(
     await page.goto("http://localhost:5173/app/chat");
     await page
       .getByLabel("Ask a question")
-      .fill("How can I access a doctor online through eSanjeevani?");
+      .fill(
+        "Why is checking blood pressure important even when someone feels well?",
+      );
     const responsePromise = page.waitForResponse(
       (r) =>
         r.url().endsWith("/api/v1/chat") && r.request().method() === "POST",
@@ -51,7 +53,13 @@ const credentials = require("dotenv").parse(
     const response = await responsePromise;
     if (response.status() !== 200) throw new Error("Chat request failed");
     const body = await response.json();
-    if (body.mode !== "real" || !body.citations.length || !body.retrieval.used)
+    if (
+      body.mode !== "real" ||
+      !body.citations.some(
+        (c) => c.source_id === "official-source-who-blood-pressure",
+      ) ||
+      !body.retrieval.used
+    )
       throw new Error("Live citation/retrieval check failed");
     await expect(
       page.getByText("SETU · GENERAL INFORMATION", { exact: true }),

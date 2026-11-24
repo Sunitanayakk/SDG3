@@ -55,7 +55,7 @@ export default function Onboarding() {
               cx="120"
               cy="125"
               r="82"
-              stroke="#a78b7144"
+              stroke="#cce3d5"
               strokeWidth="1"
               fill="none"
             />
@@ -63,19 +63,19 @@ export default function Onboarding() {
               cx="120"
               cy="125"
               r="61"
-              stroke="#c9b8a088"
-              fill="#a78b710b"
+              stroke="#b4d6c2"
+              fill="#eff7f1"
             />
             <Circle
               cx="120"
               cy="125"
               r="39"
-              fill="#201c16"
-              stroke="#a78b7188"
+              fill="#ffffff"
+              stroke="#b4d6c2"
             />
             <Path
               d="M120 105v40M100 125h40"
-              stroke="#c9b8a0"
+              stroke="#087f6b"
               strokeWidth="3"
               strokeLinecap="round"
             />
@@ -90,7 +90,7 @@ export default function Onboarding() {
                 cx={cx}
                 cy={cy}
                 r={step === i % 3 ? 9 : 6}
-                fill="#c9b8a0"
+                fill="#087f6b"
                 opacity={0.6}
               />
             ))}
@@ -137,7 +137,7 @@ export default function Onboarding() {
               width: i === step ? 27 : 7,
               height: 7,
               borderRadius: 9,
-              backgroundColor: i === step ? "#c9b8a0" : "#39332a",
+              backgroundColor: i === step ? "#087f6b" : "#087f6b",
             }}
           />
         ))}

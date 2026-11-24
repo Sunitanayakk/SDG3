@@ -35,7 +35,7 @@ export default function SignIn() {
             <TextInput
               accessibilityLabel="Email"
               placeholder="Email"
-              placeholderTextColor="#a99f8e"
+              placeholderTextColor="#526a63"
               keyboardType="email-address"
               autoCapitalize="none"
               autoComplete="email"
@@ -46,7 +46,7 @@ export default function SignIn() {
             <TextInput
               accessibilityLabel="Password"
               placeholder="Password"
-              placeholderTextColor="#a99f8e"
+              placeholderTextColor="#526a63"
               secureTextEntry
               value={password}
               onChangeText={setPassword}

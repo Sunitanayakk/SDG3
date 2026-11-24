@@ -15,6 +15,30 @@ from app.services.safety import CASES
 
 SOURCES = [
     (
+        "who-activity",
+        "Physical activity and disability",
+        "World Health Organization",
+        "https://www.who.int/news-room/fact-sheets/detail/physical-activity",
+        "who-physical-activity.md",
+        "Health education",
+    ),
+    (
+        "who-diet",
+        "General principles of a healthy diet",
+        "World Health Organization",
+        "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+        "who-healthy-diet.md",
+        "Health education",
+    ),
+    (
+        "who-blood-pressure",
+        "Understanding high blood pressure",
+        "World Health Organization",
+        "https://www.who.int/news-room/fact-sheets/detail/hypertension",
+        "who-blood-pressure.md",
+        "Health education",
+    ),
+    (
         "esanjeevani",
         "eSanjeevani service navigation",
         "MoHFW / C-DAC",

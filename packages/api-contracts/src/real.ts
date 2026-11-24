@@ -36,6 +36,10 @@ export function createRealApi(options: RealOptions): Api {
       }
       return response.status === 204 ? (undefined as T) : await response.json();
     } catch (error) {
+      if (error instanceof TypeError)
+        throw new Error(
+          "Cannot connect to the care service. Please retry shortly. You can still use the access toolkit and easy-read library.",
+        );
       if (error instanceof Error && error.name === "AbortError")
         throw new Error(
           "Backend is taking too long. A free service may be waking up; retry in a minute.",

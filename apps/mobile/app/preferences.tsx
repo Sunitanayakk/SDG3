@@ -65,7 +65,7 @@ export default function PreferencesScreen() {
               justifyContent: "space-between",
               paddingVertical: 12,
               borderBottomWidth: 1,
-              borderBottomColor: "#ffffff15",
+              borderBottomColor: "#dbe9e0",
             }}
           >
             <T style={{ flex: 1, fontSize: 14 }}>
@@ -79,8 +79,8 @@ export default function PreferencesScreen() {
               onValueChange={(v) =>
                 setDraft({ ...draft, [key]: v } as Preferences)
               }
-              trackColor={{ false: "#444", true: "#8c7253" }}
-              thumbColor="#e4d3b9"
+              trackColor={{ false: "#64786b", true: "#087f6b" }}
+              thumbColor="#164631"
             />
           </View>
         ))}
@@ -107,7 +107,7 @@ export default function PreferencesScreen() {
         onPress={() => router.push("/emergency")}
         style={{ padding: 15 }}
       >
-        <T style={{ color: "#ffb4ac", textAlign: "center" }}>{t.emergency}</T>
+        <T style={{ color: "#ae3333", textAlign: "center" }}>{t.emergency}</T>
       </Pressable>
     </Screen>
   );
