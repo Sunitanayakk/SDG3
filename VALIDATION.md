@@ -1,3 +1,29 @@
+# Greeting handling correction — 2026-11-24
+
+Reproduced the exact live `hii` message returning an evidence refusal. The previous
+code recognised only exact greetings such as `hi` and `hello`. Whole-turn
+conversation handling now accepts common elongated spellings, punctuation,
+greeting emoji, check-ins, help requests, thanks and farewells. English/Hindi/Odia
+replies are supplied consistently in the backend and shared web/native demo.
+These are application conversation replies, not generated medical information.
+
+A greeting alone skips retrieval/inference and creates no citations. A greeting
+followed by a health question stays intact for retrieval; emergency, restricted
+and injection rules take priority. Both implementations run the same example
+fixture, including negative cases such as `high blood pressure` and mixed turns.
+
+Executed checks: **91 backend**, **50 shared-contract**, **7 web**, **6 native**
+and **8 Chrome acceptance tests** passed (162 total). Typechecks, ESLint, Ruff,
+web build and native APK build passed. Sent `hii` through the real browser/API:
+HTTP 200, friendly welcome displayed, retrieval false and zero citations.
+Evidence: artifacts/greeting-validation.json and artifacts/chat-greeting.png.
+The owned local app was restarted so new requests use the fix immediately.
+
+Refreshed standalone demo APK SHA-256: `C63109FE30D68DB2E1C25EAEF9718F71AFB5F0DB93B8F95BC1B49CB403EA7B8C`.
+Older test totals and APK hashes below describe earlier builds.
+
+---
+
 # Accessibility redesign and chatbot repair — 2026-11-24
 
 The white/teal web redesign and native light palette are implemented. Added the

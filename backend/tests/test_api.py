@@ -4,7 +4,7 @@ from app.core.config import settings
 def test_greeting_explains_capabilities_without_fabricating_evidence(client):
     response = client.post("/api/v1/chat", json={"message": "Hello!"})
     assert response.status_code == 200
-    assert "Communication Board" in response.json()["reply"]
+    assert "How can I help you today?" in response.json()["reply"]
     assert response.json()["citations"] == []
     assert response.json()["retrieval"]["used"] is False
 

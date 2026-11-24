@@ -1,0 +1,10 @@
+{
+  "input": "hii",
+  "http_status": 200,
+  "mode": "real",
+  "friendly_greeting": true,
+  "reply": "Hi! I’m Setu, your healthcare access companion. How can I help you today? You can ask about health information, find care services, or explore tools that make a visit easier.",
+  "retrieval_used": false,
+  "citation_count": 0,
+  "browser_response_verified": true
+}

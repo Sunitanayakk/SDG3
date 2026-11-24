@@ -12,6 +12,12 @@ and metrics. Real Mode connects Supabase Auth/PostgreSQL and NVIDIA inference.
 
 ### Accessibility redesign — 2026-11-24
 
+Greeting handling update: casual messages such as **hii**, **hellooo**, **Hi Setu**,
+**good morning** and **thanks** receive conversational replies without a medical
+evidence warning. English, Hindi and Odia are supported in the live backend and
+shared web/native demo. A health question following a greeting still uses the
+normal safety and retrieval path; matching is never based only on a `hi` prefix.
+
 The web app now uses a white, teal and sage design, animated illustrations and
 responsive reading layouts. Reduced-motion preferences stop decorative animation.
 The same light palette and access toolkit are available in the native app.

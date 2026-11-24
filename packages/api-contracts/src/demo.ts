@@ -1,6 +1,7 @@
 import fixtures from "./fixtures.json";
 import { defaultPreferences } from "./i18n";
 import { classify, disclaimer, emergencyText } from "./safety";
+import { conversationalReply } from "./conversation";
 import type {
   Api,
   ChatRequest,
@@ -84,6 +85,7 @@ export function createDemoApi(storage: Storage): Api {
       await delay();
       const safety_level = classify(req.message);
       let reply = "";
+      const conversation = conversationalReply(req.message, req.language);
       let citations: ChatResponse["citations"] = [];
       if (safety_level === "emergency") reply = emergencyText[req.language];
       else if (safety_level === "restricted")
@@ -95,6 +97,7 @@ export function createDemoApi(storage: Storage): Api {
       else if (safety_level === "injection")
         reply =
           "I cannot follow instructions to bypass safety rules or disclose private prompts.";
+      else if (conversation !== undefined) reply = conversation;
       else if (/doctor|online|डॉक्टर|चिकित्सक|ଡାକ୍ତର|ଅନଲାଇନ/i.test(req.message)) {
         reply = {
           en: "Demo example: eSanjeevani is a government telemedicine service. Visit the official portal from Resources to check registration and service schedules. This prototype cannot book a consultation or confirm live availability.",
