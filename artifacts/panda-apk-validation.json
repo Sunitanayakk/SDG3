@@ -1,0 +1,20 @@
+{
+  "apkBytes": 37119665,
+  "apkSha256": "B984F8EB48DB5378DB5B7FFEE1E7172397917211C05A959F0C59A2141700B73E",
+  "embeddedBundle": true,
+  "nativeAnimations": [
+    {
+      "path": "res/G_.gif",
+      "frames": 200,
+      "durationMs": 20000,
+      "bytes": 2026860
+    },
+    {
+      "path": "res/Ne.gif",
+      "frames": 200,
+      "durationMs": 20000,
+      "bytes": 2461627
+    }
+  ],
+  "physicalDeviceTested": false
+}

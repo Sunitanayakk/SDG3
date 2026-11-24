@@ -4,6 +4,7 @@ import { Pause, Play } from "lucide-react";
 import { pandaMoods, type PandaMood } from "@setu/api-contracts";
 import { useSetu } from "../context";
 import { PandaAvatar } from "./PandaAvatar";
+import type { PandaSceneName } from "./pandaScene";
 
 type Scene = ReturnType<typeof import("./pandaScene").createPandaScene>;
 
@@ -11,25 +12,40 @@ export function PandaStage({
   mood = "welcome",
   className = "",
   controls = true,
+  variant,
+  time,
+  environment = true,
 }: {
   mood?: PandaMood;
   className?: string;
   controls?: boolean;
+  variant?: PandaSceneName;
+  time?: number;
+  environment?: boolean;
 }) {
   const { prefs } = useSetu();
   const systemReduced = useReducedMotion();
   const [paused, setPaused] = useState(false);
-  const stopped = paused || prefs.reduced_motion || !!systemReduced;
+  const stopped =
+    paused ||
+    prefs.reduced_motion ||
+    !!systemReduced ||
+    mood === "concerned" ||
+    mood === "resting" ||
+    time !== undefined;
   const [renderer, setRenderer] = useState("poster");
   const mount = useRef<HTMLDivElement>(null);
   const scene = useRef<Scene | null>(null);
-  const current = useRef({ mood, stopped });
+  const current = useRef({ mood, stopped, variant, time, environment });
   const description = pandaMoods.find((m) => m.id === mood)!;
   useEffect(() => {
-    current.current = { mood, stopped };
+    current.current = { mood, stopped, variant, time, environment };
     scene.current?.setMood(mood);
+    scene.current?.setScene(variant);
     scene.current?.setPaused(stopped);
-  }, [mood, stopped]);
+    scene.current?.setEnvironment(environment);
+    if (time !== undefined) scene.current?.seek(time);
+  }, [mood, stopped, variant, time, environment]);
   useEffect(() => {
     const host = mount.current;
     if (
@@ -67,10 +83,25 @@ export function PandaStage({
             host,
             current.current.mood,
             current.current.stopped,
+            current.current.variant,
+            current.current.environment,
           );
           scene.current = controller;
           visible();
-          setRenderer("webgl");
+          controller.ready
+            .then(() => {
+              if (cancelled || !controller || scene.current !== controller)
+                return;
+              if (current.current.time !== undefined)
+                controller?.seek(current.current.time);
+              setRenderer("webgl");
+            })
+            .catch(() => {
+              controller?.dispose();
+              controller = undefined;
+              scene.current = null;
+              if (!cancelled) setRenderer("poster");
+            });
         } catch {
           setRenderer("poster");
         }
@@ -93,43 +124,50 @@ export function PandaStage({
       data-mood={mood}
       data-paused={stopped}
       data-renderer={renderer}
+      data-scenery={environment}
+      data-scene={
+        variant ||
+        (["curious", "listening", "reading", "happy", "celebrate"].includes(
+          mood,
+        )
+          ? "meadow"
+          : "jungle")
+      }
     >
       <div
         className="panda-viewport"
         role="img"
         aria-label={`Setu panda: ${description.label}. ${description.description}`}
-        onPointerMove={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          scene.current?.lookAt(
-            ((e.clientX - rect.left) / rect.width) * 2 - 1,
-            ((e.clientY - rect.top) / rect.height) * 2 - 1,
-          );
-        }}
-        onPointerLeave={() => scene.current?.lookAt(0, 0)}
       >
         <div className="panda-halo" />
         <div className="panda-scene-mount" ref={mount} />
         <div className="panda-poster">
-          <PandaAvatar mood={mood} />
+          <PandaAvatar mood={mood} variant={variant} />
         </div>
-        <span className="panda-orbit orbit-one" aria-hidden="true">
-          ✦
-        </span>
-        <span className="panda-orbit orbit-two" aria-hidden="true">
-          ＋
-        </span>
       </div>
       {controls && (
         <figcaption className="panda-stage-caption">
           <span>
             <strong>Setu, by your side.</strong>
-            <small>{description.label}</small>
+            <small>
+              {variant
+                ? variant === "jungle"
+                  ? "Leaf-crown panda"
+                  : "Butterfly panda"
+                : description.label}
+            </small>
           </span>
           <button
             className="panda-motion-toggle"
             onClick={() => setPaused(!paused)}
-            aria-pressed={paused}
-            disabled={!!systemReduced || prefs.reduced_motion}
+            aria-pressed={stopped}
+            disabled={
+              !!systemReduced ||
+              prefs.reduced_motion ||
+              mood === "concerned" ||
+              mood === "resting" ||
+              time !== undefined
+            }
             aria-label={
               stopped ? "Play panda animation" : "Pause panda animation"
             }
@@ -138,9 +176,13 @@ export function PandaStage({
             <span>
               {systemReduced || prefs.reduced_motion
                 ? "Reduced motion"
-                : paused
-                  ? "Play motion"
-                  : "Pause motion"}
+                : time !== undefined
+                  ? "Frame preview"
+                  : mood === "concerned" || mood === "resting"
+                    ? "Still support"
+                    : paused
+                      ? "Play motion"
+                      : "Pause motion"}
             </span>
           </button>
         </figcaption>
@@ -157,7 +199,7 @@ export function PandaMini({ mood }: { mood: PandaMood }) {
       data-still={prefs.reduced_motion}
       aria-hidden="true"
     >
-      <PandaAvatar mood={mood} />
+      <PandaAvatar mood={mood} animate />
     </span>
   );
 }

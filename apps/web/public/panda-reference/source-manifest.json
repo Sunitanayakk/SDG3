@@ -1,0 +1,164 @@
+{
+  "source": "https://bambukstudio.com/",
+  "captured": "2026-11-24",
+  "attribution": "Bambuk Studio",
+  "runtime": "@esotericsoftware/spine-webgl 4.1.55",
+  "assets": [
+    {
+      "file": "flowers-back.atlas",
+      "url": "https://bambukstudio.com/scenes/flowers-back.atlas",
+      "sha256": "f580fa7bb969c723cf44621771800bc6a5ba2c6b2d2df1285e0ceb9875177717",
+      "bytes": 85
+    },
+    {
+      "file": "flowers-back.avif",
+      "url": "https://bambukstudio.com/scenes/flowers-back.avif",
+      "sha256": "aff75d619ea8b0bff90d8fe43934fd3fdbbedd3c6b5de26d21533d273d6fca40",
+      "bytes": 219807
+    },
+    {
+      "file": "flowers-back.json",
+      "url": "https://bambukstudio.com/scenes/flowers-back.json",
+      "sha256": "e91d743597ecbc60ce5a12f995b63cd8596b9514dfef8344266c663dd63f0c4f",
+      "bytes": 28371
+    },
+    {
+      "file": "flowers-front.atlas",
+      "url": "https://bambukstudio.com/scenes/flowers-front.atlas",
+      "sha256": "e361eeb40909216c3ce80401b1c804349e50be46192881bc9875cc77f686380a",
+      "bytes": 518
+    },
+    {
+      "file": "flowers-front.avif",
+      "url": "https://bambukstudio.com/scenes/flowers-front.avif",
+      "sha256": "2a2c322114482c634bcf1e0237e831cfe0c69fec1e8535a13e66778b9f4086d6",
+      "bytes": 158601
+    },
+    {
+      "file": "flowers-front.json",
+      "url": "https://bambukstudio.com/scenes/flowers-front.json",
+      "sha256": "46380af1ff2b2eb181f01c240a63f3440201dd6aa6a5aac3b2064055f92acab5",
+      "bytes": 28088
+    },
+    {
+      "file": "flowers-left.atlas",
+      "url": "https://bambukstudio.com/scenes/flowers-left.atlas",
+      "sha256": "b95f5e5918b818e8a982f63e667c6fd6a91c7841e726d110b0e2f23ff0b7364c",
+      "bytes": 287
+    },
+    {
+      "file": "flowers-left.avif",
+      "url": "https://bambukstudio.com/scenes/flowers-left.avif",
+      "sha256": "75e3019f666dfb5d7c5c8418f0bcc3e2fd3efb501b94af7d698b2a07e6fbd8f5",
+      "bytes": 281719
+    },
+    {
+      "file": "flowers-left.json",
+      "url": "https://bambukstudio.com/scenes/flowers-left.json",
+      "sha256": "38800e046d4d87cfd9f497a90d245d8d8955df1da86d59c76f5cc01b042c0f30",
+      "bytes": 54570
+    },
+    {
+      "file": "flowers-right.atlas",
+      "url": "https://bambukstudio.com/scenes/flowers-right.atlas",
+      "sha256": "050a9ea8342dec7ae4de669fa802ae14f6d1c22d7e2857ff52d352dbdde4d6df",
+      "bytes": 562
+    },
+    {
+      "file": "flowers-right.avif",
+      "url": "https://bambukstudio.com/scenes/flowers-right.avif",
+      "sha256": "1ae1790d5d778e47d9409eeb8ddcb795eefca152a9a2dcae3c00e92e10512a75",
+      "bytes": 419414
+    },
+    {
+      "file": "flowers-right.json",
+      "url": "https://bambukstudio.com/scenes/flowers-right.json",
+      "sha256": "b8503b14819bd9bfe6dee7cdbe899f50986f797688a9b0fad62f602bde93f062",
+      "bytes": 82630
+    },
+    {
+      "file": "leafs-front.atlas",
+      "url": "https://bambukstudio.com/scenes/leafs-front.atlas",
+      "sha256": "ec1546d31e74c8948f7b2aa2362634e6f9efc3eeda50216284738e7c20d955df",
+      "bytes": 143
+    },
+    {
+      "file": "leafs-front.avif",
+      "url": "https://bambukstudio.com/scenes/leafs-front.avif",
+      "sha256": "5e9e5c4270f4339055a30823a0f51d01d9d9473c8f643f5a6083dd9e8fc38867",
+      "bytes": 134441
+    },
+    {
+      "file": "leafs-front.json",
+      "url": "https://bambukstudio.com/scenes/leafs-front.json",
+      "sha256": "8454b66d6fc4a03afdfe1ce387d2dbe301dcb1f0a87d21f1acbd4fb64ea64e79",
+      "bytes": 37452
+    },
+    {
+      "file": "leafs-right.atlas",
+      "url": "https://bambukstudio.com/scenes/leafs-right.atlas",
+      "sha256": "a067a8f4fb36cfd00b468177b69e25d8d2e18af5d11c9a9c145aa7f7c05e7453",
+      "bytes": 347
+    },
+    {
+      "file": "leafs-right.avif",
+      "url": "https://bambukstudio.com/scenes/leafs-right.avif",
+      "sha256": "d3e2361c5225c133c96257c14d13c085aa98f6f9171577dceca84d6b44714b40",
+      "bytes": 345388
+    },
+    {
+      "file": "leafs-right.json",
+      "url": "https://bambukstudio.com/scenes/leafs-right.json",
+      "sha256": "8894b848b5dff6267408b3a726ceb59c137cd1b403b3ecf6c77f8c2f83d470d5",
+      "bytes": 143803
+    },
+    {
+      "file": "panda-1.atlas",
+      "url": "https://bambukstudio.com/scenes/panda-1.atlas",
+      "sha256": "e788a84969d558c406a655dbf51ab5e019ed7b0944ef6080e4257c7300e214a2",
+      "bytes": 1618
+    },
+    {
+      "file": "panda-1.avif",
+      "url": "https://bambukstudio.com/scenes/panda-1.avif",
+      "sha256": "549b6f63428df482b97a0a0df4c391790860db6d6bcd9216b16f1e1c1b28d36d",
+      "bytes": 664272
+    },
+    {
+      "file": "panda-1.json",
+      "url": "https://bambukstudio.com/scenes/panda-1.json",
+      "sha256": "b1fecce2150e4e4ddea8214a4e2cd30db6a0357f54cf4420f873b8eaa22d8bcc",
+      "bytes": 108412
+    },
+    {
+      "file": "panda-2.atlas",
+      "url": "https://bambukstudio.com/scenes/panda-2.atlas",
+      "sha256": "17ce13d747a12e184970ec572a60128a32d5547ec13d313eb0d9884fe72817bd",
+      "bytes": 781
+    },
+    {
+      "file": "panda-2.avif",
+      "url": "https://bambukstudio.com/scenes/panda-2.avif",
+      "sha256": "977b7de83571a9eaac541ed4c19d33e23d4fdcc41b24d038bea6291118750b0e",
+      "bytes": 505629
+    },
+    {
+      "file": "panda-2.json",
+      "url": "https://bambukstudio.com/scenes/panda-2.json",
+      "sha256": "a862d690c639fdc54ef55d3d890c8e1bbe4609ed9692e5c0dc53bb400dae0f2d",
+      "bytes": 89747
+    },
+    {
+      "file": "scene-bg.avif",
+      "url": "https://bambukstudio.com/images/scene/scene-bg.avif",
+      "sha256": "7545cd558975571b8e4c1898588084bee94f1aa2f9742312fdcaef34383c50cb",
+      "bytes": 111929
+    }
+  ],
+  "generated": {
+    "posters": "Frames rendered from the original rigs",
+    "webAvatars": "160x176 animated WebP, 10 fps, 20 seconds",
+    "androidAvatars": "192x211 GIF, 10 fps, 20 seconds"
+  },
+  "rights": "Artwork belongs to Bambuk Studio. No redistribution license for the artwork was supplied. Spine runtime use and distribution are governed by SPINE-RUNTIME-LICENSE.txt."
+}

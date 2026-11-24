@@ -1,6 +1,8 @@
 param([string]$Architectures = 'arm64-v8a')
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
+& node (Join-Path $PSScriptRoot 'sync-panda-media.cjs')
+if ($LASTEXITCODE -ne 0) { throw 'Could not synchronize the panda animation assets.' }
 $buildTemp = Join-Path $project '.tmp'
 New-Item -ItemType Directory -Force $buildTemp | Out-Null
 # Keep caches on the project drive, particularly on machines with a small C: drive.

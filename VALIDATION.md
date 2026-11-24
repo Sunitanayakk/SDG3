@@ -1,4 +1,76 @@
-# Panda companion and motion study — 2026-11-24
+# Realistic reference panda replacement — 2026-11-24
+
+Browser permission was verified and the reference inspected again. Replaced the
+geometric Three.js panda with the original Bambuk artwork, Spine 4.1.24 rigs,
+texture atlases and both authored 20-second animation loops. The local runtime
+is Spine WebGL 4.1.55; the unused Three.js dependency was removed.
+
+The six panda rig/atlas/texture files were byte-compared with their downloaded
+originals. All **25 source asset hashes match** the recorded source manifest.
+`node scripts/check-panda-media.cjs` verifies those hashes. The complete motion
+inventory is `artifacts/panda-motion-inventory.json`: 66 authored panda-1
+channels and 44 panda-2 channels, plus all timelines in six scenery rigs.
+`MOTION_STUDY.md` records the implementation and scope of the visual match.
+
+| Executed check | Result |
+| --- | --- |
+| Shared contracts Vitest | 53 passed |
+| Web Vitest | 7 passed |
+| Native Jest | 7 passed |
+| Chrome acceptance | 15 passed |
+| Workspace TypeScript / web and native ESLint | Passed |
+| Web production build | Passed |
+| Original source asset integrity | 25 hashes matched |
+| Native arm64 standalone demo APK build | Passed |
+| APK v2 signature / embedded bundle / both animated GIFs | Verified |
+| Configured private credentials in built clients | No matches |
+
+**82 client/shared regression tests passed.** The backend was unchanged and was
+not retested for this visual change. Browser checks use isolated synthetic data.
+They verify both original rigs/clips, actual frame pause/resume, distinct pixels
+when seeking the authored timeline, GPU-loss fallback to real panda PNGs,
+scroll-driven scene switching, offscreen suspension, reduced-motion static
+frames, text-only graphics suppression, keyboard controls, enlarged text and
+existing chat / passport / checklist / multilingual / admin workflows.
+
+The large original textures load asynchronously. Rig readiness checks have a
+bounded 30-second wait; the default five-second assertion proved insufficient
+under concurrent build/test load. This does not bypass a failed renderer: the
+checks still require a live WebGL canvas and advancing rendered frames.
+
+The real-mode local page was separately captured in Chrome: both full original
+loops recorded with **zero page errors**. Evidence:
+`artifacts/real-panda-jungle.png`, `artifacts/real-panda-meadow.png`,
+`artifacts/setu-panda-hero.png`, `artifacts/setu-panda-mobile-web.png` and
+`artifacts/setu-motion-tour.webm`. The healthcare page layout and scene framing
+remain SDG3-specific; these captures do not claim the entire reference site is
+pixel-identical.
+
+Web/native avatar exports were decoded with Pillow: each contains **200 frames,
+100 ms per frame, 20,000 ms total**, with 160×176 WebP for compact web avatars and
+192×211 GIF for Android. Native PNG/GIF assets live within the mobile app's Metro
+scope. `scripts/sync-panda-media.cjs` copies canonical exports before Android
+builds. Pausing / backgrounding switches compact avatars to a still image.
+
+The web renderer is a separate **171.46 kB / 47.23 kB gzip** chunk. The build
+completes; Rollup removes two non-fatal annotation comments from Zod.
+
+The refreshed standalone demo APK is 37,119,665 bytes, SHA-256
+`B984F8EB48DB5378DB5B7FFEE1E7172397917211C05A959F0C59A2141700B73E`.
+Its v2 signature verifies. The embedded app bundle and both original-motion GIF
+exports are present; decoding the GIFs inside the APK confirms 200 frames and
+20,000 ms each. See `artifacts/panda-apk-validation.json`. No physical device was
+connected. Configured server/admin secrets were absent from the built web/APK
+assets (50 checked) and source candidates. Signing files and APK remain ignored.
+
+Physical-device animation QA and public hosting remain unverified. Artwork
+attribution and the Spine runtime license
+are retained; separate redistribution rights for the Bambuk artwork have not
+been verified. The following sections describe earlier, superseded builds.
+
+---
+
+# Earlier geometric companion — superseded
 
 Inspected the Bambuk Studio homepage forest and meadow panda scenes in Chrome.
 The motion catalogue and limits of that visual audit are in `MOTION_STUDY.md`.

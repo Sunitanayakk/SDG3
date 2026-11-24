@@ -30,8 +30,9 @@
   transition: opacity 0.2s;
 }
 .panda-poster > .panda-avatar {
-  width: min(74%, 310px);
-  height: 93%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .panda-stage[data-renderer="webgl"] .panda-poster {
   opacity: 0;
@@ -252,84 +253,9 @@
 .panda-mini > .panda-avatar {
   width: 100%;
   height: 100%;
-  overflow: visible;
-}
-.panda-vector-body {
-  transform-origin: 150px 300px;
-  animation: pandaBreathe 4s ease-in-out infinite;
-}
-.panda-vector-head {
-  transform-origin: 150px 178px;
-}
-.panda-avatar[data-mood="curious"] .panda-vector-head {
-  transform: rotate(-8deg);
-}
-.panda-avatar[data-mood="thinking"] .panda-vector-head {
-  transform: rotate(7deg);
-}
-.panda-avatar[data-mood="welcome"] .panda-vector-paw-right {
-  transform-origin: 220px 195px;
-  transform: rotate(-135deg);
-  animation: pandaWave 2s ease-in-out infinite;
-}
-.panda-avatar[data-mood="thinking"] .panda-vector-paw-right {
-  transform-origin: 220px 195px;
-  transform: rotate(130deg);
-}
-.panda-vector-eyes {
-  transform-origin: 150px 124px;
-  animation: pandaBlink 5.1s linear infinite;
-}
-.panda-avatar[data-mood="resting"] .panda-vector-eyes,
-.panda-avatar[data-mood="concerned"] .panda-vector-eyes {
-  animation: none;
-}
-@keyframes pandaBlink {
-  0%,
-  91%,
-  97%,
-  100% {
-    transform: scaleY(1);
-  }
-  94% {
-    transform: scaleY(0.08);
-  }
-}
-.panda-avatar[data-mood="celebrate"] .panda-vector-paw-left {
-  transform-origin: 80px 195px;
-  transform: rotate(150deg);
-}
-.panda-avatar[data-mood="celebrate"] .panda-vector-paw-right {
-  transform-origin: 220px 195px;
-  transform: rotate(-150deg);
-}
-.panda-avatar[data-mood="concerned"] .panda-vector-body {
-  animation: none;
-}
-@keyframes pandaBreathe {
-  0%,
-  100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(1.012);
-  }
-}
-@keyframes pandaWave {
-  0%,
-  100% {
-    transform: rotate(-135deg);
-  }
-  25%,
-  75% {
-    transform: rotate(-155deg);
-  }
-  50% {
-    transform: rotate(-125deg);
-  }
-}
-.panda-mini[data-still="true"] * {
-  animation: none !important;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 16px;
 }
 .chat-empty .panda-mini {
   width: 118px;
@@ -349,6 +275,91 @@
   border: 1px solid #d7e5d7;
   border-radius: 24px;
   background: linear-gradient(140deg, #f0f7e8, #edf6f0);
+}
+.panda-reference-controls {
+  min-width: 0;
+}
+.panda-scene-picker {
+  display: grid;
+  gap: 14px;
+}
+.panda-scene-picker button {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+  padding: 22px;
+  border: 1px solid #cadfd0;
+  border-radius: 18px;
+  background: white;
+  color: #214e3f;
+  line-height: 1.6;
+}
+.panda-scene-picker button[aria-pressed="true"] {
+  border-color: #438c6a;
+  box-shadow: 0 0 0 1px #438c6a;
+  background: #edf6ee;
+}
+.panda-scene-picker strong {
+  font-size: 1.1rem;
+}
+.panda-scene-picker span {
+  font-size: 0.9rem;
+  color: #526e61;
+}
+.panda-timeline {
+  margin: 8px 0 24px;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid #d4e2d9;
+  background: white;
+}
+.panda-timeline label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.panda-timeline input {
+  width: 100%;
+  min-height: 44px;
+  accent-color: #087f6b;
+}
+.panda-timeline .row {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.panda-timeline output {
+  color: #476c5a;
+  font-size: 0.875rem;
+}
+.panda-reference-controls > .caption {
+  padding-inline: 8px;
+}
+.panda-viewport {
+  overflow: hidden;
+  border-radius: 28px;
+}
+.panda-stage[data-scenery="true"] .panda-viewport {
+  background: url("/panda-reference/scene-bg.avif") center top / 100% auto
+    no-repeat #d9ebec;
+}
+.panda-stage[data-scenery="true"][data-scene="meadow"] .panda-viewport {
+  background-position: center bottom;
+}
+.panda-scenery-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  margin: 0 0 14px;
+  color: #325e48;
+  font-size: 0.9rem;
+}
+.panda-scenery-control input {
+  width: 20px;
+  height: 20px;
+  accent-color: #087f6b;
 }
 .panda-live-description {
   padding: 20px 16px;

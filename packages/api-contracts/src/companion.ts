@@ -9,7 +9,8 @@ export const pandaMoods = [
   {
     id: "welcome",
     label: "A warm hello",
-    description: "A raised paw, a gentle wave and a welcoming smile.",
+    description:
+      "The original leaf-crown panda welcomes you with natural facial movement.",
   },
   {
     id: "curious",
@@ -19,17 +20,19 @@ export const pandaMoods = [
   {
     id: "listening",
     label: "Listening",
-    description: "A slight forward lean, attentive eyes and a calm expression.",
+    description: "Setu stays by your side while you choose your words.",
   },
   {
     id: "thinking",
     label: "Thinking",
-    description: "A paw near the chin and a thoughtful upward glance.",
+    description:
+      "Your request is being prepared; the original panda idle animation continues.",
   },
   {
     id: "reading",
     label: "Reading",
-    description: "An open book, lowered gaze and a subtle reading nod.",
+    description:
+      "A quiet companion while you explore information at your pace.",
   },
   {
     id: "happy",
@@ -39,7 +42,8 @@ export const pandaMoods = [
   {
     id: "celebrate",
     label: "A small success",
-    description: "Both paws rise with one short, gentle bounce.",
+    description:
+      "A saved preference or completed task, acknowledged with the original panda artwork.",
   },
   {
     id: "concerned",
@@ -49,7 +53,8 @@ export const pandaMoods = [
   {
     id: "resting",
     label: "Taking a breath",
-    description: "Closed eyes and a relaxed resting pose.",
+    description:
+      "The original panda is shown as a still frame, with movement paused.",
   },
 ] as const;
 export type PandaMood = (typeof pandaMoods)[number]["id"];

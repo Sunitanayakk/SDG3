@@ -20,7 +20,7 @@ beforeEach(async () => {
   await AsyncStorage.clear();
   jest.clearAllMocks();
 });
-it("native companion offers expressions and an explicit pause control", async () => {
+it("native companion offers both original scenes and an explicit pause control", async () => {
   render(
     <SetuProvider>
       <Companion />
@@ -29,9 +29,9 @@ it("native companion offers expressions and an explicit pause control", async ()
   await waitFor(() =>
     expect(screen.getByText("A friendly face, by your side.")).toBeTruthy(),
   );
-  const thinking = screen.getByRole("button", { name: /Thinking/ });
-  fireEvent.press(thinking);
-  expect(thinking.props.accessibilityState.selected).toBe(true);
+  const butterfly = screen.getByRole("button", { name: /Butterfly panda/ });
+  fireEvent.press(butterfly);
+  expect(butterfly.props.accessibilityState.selected).toBe(true);
   fireEvent.press(screen.getByLabelText("Pause panda movement"));
   expect(screen.getByLabelText("Play panda movement")).toBeTruthy();
   expect(Speech.speak).not.toHaveBeenCalled();

@@ -1,34 +1,48 @@
 {
-  "checkedAt": "2026-11-24T12:42:58.464Z",
-  "renderer": "webgl",
-  "poses": [
-    "idle",
-    "welcome",
-    "curious",
-    "listening",
-    "thinking",
-    "reading",
-    "happy",
-    "celebrate",
-    "concerned",
-    "resting"
+  "checkedDate": "2026-11-24",
+  "renderer": "spine-webgl 4.1.55",
+  "source": "https://bambukstudio.com/",
+  "sourceRigVersion": "4.1.24",
+  "originalAssetHashesVerified": 25,
+  "originalPandaFilesByteIdentical": true,
+  "authoredPandaClips": [
+    {
+      "name": "idle-panda",
+      "durationSeconds": 20,
+      "bones": 101,
+      "slots": 34,
+      "channels": 66
+    },
+    {
+      "name": "idle_panda",
+      "durationSeconds": 20,
+      "bones": 43,
+      "slots": 17,
+      "channels": 44
+    }
   ],
   "pageErrors": [],
   "screenshots": [
     "setu-panda-hero.png",
-    "setu-panda-thinking.png",
-    "setu-panda-reading.png",
-    "setu-panda-curious.png",
+    "real-panda-jungle.png",
+    "real-panda-meadow.png",
     "setu-panda-mobile-web.png"
   ],
   "video": "setu-motion-tour.webm",
-  "note": "Chrome desktop and mobile viewport; not a physical Android device test.",
+  "note": "Both full original loops recorded in local Chrome. Desktop/mobile viewport checks are not physical Android device QA. Original artwork redistribution rights are not verified.",
+  "compactExports": {
+    "frames": 200,
+    "frameDurationMs": 100,
+    "totalDurationMs": 20000,
+    "webpSize": [160, 176],
+    "nativeGifSize": [192, 211]
+  },
   "regressionTests": {
     "sharedContracts": 53,
     "web": 7,
     "native": 7,
-    "chromeAcceptance": 14,
-    "total": 81,
+    "chromeAcceptance": 15,
+    "total": 82,
     "backendRetested": false
   },
   "builds": {
@@ -36,9 +50,12 @@
     "nativeArm64Demo": "passed",
     "typecheck": "passed",
     "eslint": "passed",
-    "configuredServerCredentialsAbsent": true,
+    "configuredSourceCredentialsAbsent": true,
+    "configuredBuiltClientCredentialsAbsent": true,
     "apkSignatureV2Verified": true,
-    "apkBytes": 32380841,
-    "apkSha256": "DEAB94EAB5ED444B599D4AAAF374BF181A55CBA026CE5D176B400F327DFCA3B4"
+    "apkEmbeddedOriginalLoopsVerified": true,
+    "apkBytes": 37119665,
+    "apkSha256": "B984F8EB48DB5378DB5B7FFEE1E7172397917211C05A959F0C59A2141700B73E",
+    "physicalDeviceTested": false
   }
 }

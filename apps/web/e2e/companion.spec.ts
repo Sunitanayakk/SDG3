@@ -1,84 +1,124 @@
 import { expect, test, type Page } from "@playwright/test";
-
-const moods = [
-  "idle",
-  "welcome",
-  "curious",
-  "listening",
-  "thinking",
-  "reading",
-  "happy",
-  "celebrate",
-  "concerned",
-  "resting",
-];
 const frames = (page: Page) =>
   page
     .locator(".panda-scene-mount")
     .evaluate((el) => Number((el as HTMLElement).dataset.frameCount));
-
+const canvasDigest = (page: Page) =>
+  page.locator(".panda-stage canvas").evaluate((el) => {
+    const text = (el as HTMLCanvasElement).toDataURL();
+    let hash = 0;
+    for (let i = 0; i < text.length; i++)
+      hash = (hash * 31 + text.charCodeAt(i)) | 0;
+    return hash;
+  });
 test.use({ launchOptions: { args: ["--enable-unsafe-swiftshader"] } });
-test.describe("original 3D companion", () => {
-  test.use({ reducedMotion: "no-preference" });
 
-  test("renders WebGL, changes every pose, pauses real frames and resumes", async ({
+test.describe("original realistic panda", () => {
+  test.use({ reducedMotion: "no-preference" });
+  test("renders both original rigs, pauses actual frames and falls back after GPU loss", async ({
     page,
+    request,
   }) => {
     const errors: string[] = [];
     page.on("pageerror", (e) => errors.push(e.message));
+    const original = await (
+      await request.get("/panda-reference/panda-1.json")
+    ).json();
+    expect(original.skeleton.spine).toBe("4.1.24");
+    expect(original.bones.length).toBe(101);
+    expect(Object.keys(original.animations)).toEqual(["idle-panda"]);
     await page.goto("/app/companion");
     const stage = page.locator(".panda-stage");
-    await expect(stage).toHaveAttribute("data-renderer", "webgl");
+    const mount = page.locator(".panda-scene-mount");
+    await expect(stage).toHaveAttribute("data-renderer", "webgl", {
+      timeout: 30000,
+    });
+    await expect(mount).toHaveAttribute("data-clip", "idle-panda");
     const start = await frames(page);
     await expect.poll(() => frames(page)).toBeGreaterThan(start + 4);
-    for (let i = 0; i < moods.length; i++) {
-      await page
-        .getByRole("group", { name: "Choose a panda expression" })
-        .getByRole("button")
-        .nth(i)
-        .click();
-      await expect(stage).toHaveAttribute("data-mood", moods[i]);
-    }
+    await page.getByRole("button", { name: /^Butterfly panda/ }).click();
+    await expect(mount).toHaveAttribute("data-scene", "meadow");
+    await expect(mount).toHaveAttribute("data-clip", "idle_panda");
     await page.getByRole("button", { name: "Pause panda animation" }).click();
     await expect(stage).toHaveAttribute("data-paused", "true");
-    // A resize or pose update may draw once; a running animation must draw repeatedly.
     await page.waitForTimeout(150);
     const stopped = await frames(page);
     await page.waitForTimeout(300);
     expect(await frames(page)).toBe(stopped);
     await page.getByRole("button", { name: "Play panda animation" }).click();
     await expect.poll(() => frames(page)).toBeGreaterThan(stopped + 3);
-    // A lost GPU context must leave a usable vector character and controls.
     await page
       .locator("canvas")
       .dispatchEvent("webglcontextlost", { cancelable: true });
     await expect(stage).toHaveAttribute("data-renderer", "poster");
     await expect(stage.locator(".panda-poster")).toBeVisible();
     await expect(stage.locator("canvas")).toHaveCount(0);
-    await page.getByRole("button", { name: /^Reading An open/ }).click();
-    await expect(stage).toHaveAttribute("data-mood", "reading");
-    await page
-      .getByRole("link", { name: "Meet Setu in the chat" })
-      .scrollIntoViewIfNeeded();
+    await expect(stage.locator("img")).toHaveAttribute(
+      "src",
+      "/panda-reference/meadow-poster.png",
+    );
+    await page.getByRole("button", { name: /^Leaf-crown panda/ }).click();
+    await expect(stage.locator("img")).toHaveAttribute(
+      "src",
+      "/panda-reference/jungle-poster.png",
+    );
     await stage.scrollIntoViewIfNeeded();
     expect(errors).toEqual([]);
   });
-
-  test("scroll chapters change pose and offscreen scenes stop rendering", async ({
+  test("original timeline changes rendered pixels and resumes the loop", async ({
+    page,
+  }) => {
+    await page.goto("/app/companion");
+    await expect(page.locator(".panda-stage")).toHaveAttribute(
+      "data-renderer",
+      "webgl",
+      { timeout: 30000 },
+    );
+    const range = page.getByLabel(
+      "Inspect the original animation, frame by frame",
+    );
+    await range.focus();
+    await range.press("End");
+    await expect(page.locator(".panda-stage")).toHaveAttribute(
+      "data-paused",
+      "true",
+    );
+    await expect(page.locator(".panda-scene-mount")).toHaveAttribute(
+      "data-time",
+      "19.95",
+    );
+    const end = await canvasDigest(page);
+    await range.press("Home");
+    await expect(page.locator(".panda-scene-mount")).toHaveAttribute(
+      "data-time",
+      "0",
+    );
+    expect(await canvasDigest(page)).not.toBe(end);
+    await page.getByRole("button", { name: "Resume original motion" }).click();
+    await expect(page.locator(".panda-stage")).toHaveAttribute(
+      "data-paused",
+      "false",
+    );
+    const start = await frames(page);
+    await expect.poll(() => frames(page)).toBeGreaterThan(start + 3);
+  });
+  test("scroll chapters switch original scenes and offscreen rendering stops", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 950 });
     await page.goto("/");
     const hero = page.locator(".panda-hero .panda-stage");
-    await expect(hero).toHaveAttribute("data-renderer", "webgl");
+    await expect(hero).toHaveAttribute("data-renderer", "webgl", {
+      timeout: 30000,
+    });
     const scene = hero.locator(".panda-scene-mount");
-    for (const [index, mood] of ["reading", "listening", "happy"].entries()) {
+    for (const [index, name] of ["jungle", "meadow", "meadow"].entries()) {
       await page
         .locator(`.panda-chapters article[data-chapter="${index}"]`)
         .scrollIntoViewIfNeeded();
       await expect(page.locator(".story-panda")).toHaveAttribute(
-        "data-mood",
-        mood,
+        "data-scene",
+        name,
       );
     }
     await page.waitForTimeout(150);
@@ -87,13 +127,12 @@ test.describe("original 3D companion", () => {
     expect(await scene.getAttribute("data-frame-count")).toBe(stopped);
     await page.getByRole("button", { name: "Understand", exact: true }).click();
     await expect(page.locator(".story-panda")).toHaveAttribute(
-      "data-mood",
-      "reading",
+      "data-scene",
+      "jungle",
     );
   });
 });
-
-test("system reduced motion freezes frames while keeping pose selection useful", async ({
+test("system reduced motion freezes frames while retaining scene selection", async ({
   page,
 }) => {
   await page.goto("/app/companion");
@@ -102,16 +141,17 @@ test("system reduced motion freezes frames while keeping pose selection useful",
   await expect(
     page.getByRole("button", { name: "Play panda animation" }),
   ).toBeDisabled();
-  await expect(stage).toHaveAttribute("data-renderer", "webgl");
-  await page.getByRole("button", { name: /^Reading An open/ }).click();
-  await expect(stage).toHaveAttribute("data-mood", "reading");
+  await expect(stage).toHaveAttribute("data-renderer", "webgl", {
+    timeout: 30000,
+  });
+  await page.getByRole("button", { name: /^Butterfly panda/ }).click();
+  await expect(stage).toHaveAttribute("data-scene", "meadow");
   await page.waitForTimeout(150);
   const stopped = await frames(page);
   await page.waitForTimeout(300);
   expect(await frames(page)).toBe(stopped);
 });
-
-test("text-only removes the canvas and descriptions remain keyboard accessible at small widths", async ({
+test("text-only avoids graphics and scene controls fit enlarged text at small widths", async ({
   page,
 }) => {
   await page.goto("/app/preferences");
@@ -119,13 +159,18 @@ test("text-only removes the canvas and descriptions remain keyboard accessible a
   await page.getByLabel("Text size").selectOption("extra");
   await page.getByRole("button", { name: "Save preferences" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-text-only", "true");
+  const mediaRequests: string[] = [];
+  page.on("request", (r) => {
+    if (r.url().includes("/panda-reference/")) mediaRequests.push(r.url());
+  });
   await page.goto("/app/companion");
   await expect(page.locator("canvas")).toHaveCount(0);
-  const reading = page.getByRole("button", { name: /^Reading An open/ });
-  await reading.focus();
+  await expect(page.locator(".panda-avatar")).toHaveCount(0);
+  const button = page.getByRole("button", { name: /^Butterfly panda/ });
+  await button.focus();
   await page.keyboard.press("Enter");
   await expect(page.locator(".panda-live-description")).toContainText(
-    "An open book",
+    "bow-tie",
   );
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 950 });
@@ -133,14 +178,18 @@ test("text-only removes the canvas and descriptions remain keyboard accessible a
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(width);
   }
+  expect(mediaRequests).toEqual([]);
 });
-
-test("chat focus and reply state change poses; urgent guidance stays calm", async ({
+test("chat activity updates the real avatar and urgent guidance uses a still", async ({
   page,
 }) => {
   await page.goto("/app/chat");
   const panda = page.locator(".chat-header .panda-avatar");
   await expect(panda).toHaveAttribute("data-mood", "welcome");
+  await expect(panda).toHaveAttribute(
+    "src",
+    "/panda-reference/jungle-poster.png",
+  );
   await page.getByLabel("Ask a question").focus();
   await expect(panda).toHaveAttribute("data-mood", "listening");
   await page.getByLabel("Ask a question").fill("hii");
@@ -151,9 +200,12 @@ test("chat focus and reply state change poses; urgent guidance stays calm", asyn
   await page.getByRole("button", { name: "Send", exact: true }).click();
   await expect(page.getByText(/This may be an emergency/)).toBeVisible();
   await expect(panda).toHaveAttribute("data-mood", "concerned");
+  await expect(panda).toHaveAttribute(
+    "src",
+    "/panda-reference/jungle-poster.png",
+  );
 });
-
-test("only saved preferences and completed checklists trigger a success pose", async ({
+test("saved passport and completed checklist acknowledge task success", async ({
   page,
 }) => {
   await page.goto("/app/passport");

@@ -1,24 +1,37 @@
 import { useState } from "react";
 import { Pressable, View } from "react-native";
-import { pandaMoods, type PandaMood } from "@setu/api-contracts";
 import { Panda } from "../components/Panda";
 import { Button, Card, Heading, Screen, T, s } from "../components/ui";
+const scenes = [
+  {
+    id: "jungle" as const,
+    name: "Leaf-crown panda",
+    description:
+      "Realistic fur, a leaf crown and the original natural facial movement.",
+  },
+  {
+    id: "meadow" as const,
+    name: "Butterfly panda",
+    description:
+      "The original bow-tie panda, with its butterfly and gentle head and eye movement.",
+  },
+];
 export default function Companion() {
-  const [mood, setMood] = useState<PandaMood>("welcome");
+  const [scene, setScene] = useState<"jungle" | "meadow">("jungle");
   const [paused, setPaused] = useState(false);
-  const selected = pandaMoods.find((m) => m.id === mood)!;
+  const selected = scenes.find((s) => s.id === scene)!;
   return (
     <Screen>
       <Heading
         eyebrow="MEET SETU"
         title="A friendly face, by your side."
-        body="Choose an expression or pause the movement. Accessibility preferences take priority."
+        body="Explore two panda scenes, or pause the motion. Your accessibility preferences take priority."
       />
       <Card>
         <View style={{ alignItems: "center" }}>
-          <Panda mood={mood} size={230} paused={paused} />
+          <Panda mood="idle" variant={scene} size={230} paused={paused} />
         </View>
-        <T style={s.title}>{selected.label}</T>
+        <T style={s.title}>{selected.name}</T>
         <T>{selected.description}</T>
         <Button
           label={paused ? "Play panda movement" : "Pause panda movement"}
@@ -27,28 +40,29 @@ export default function Companion() {
         />
       </Card>
       <View style={{ gap: 12, marginVertical: 20 }}>
-        {pandaMoods.map((m) => (
+        {scenes.map((v) => (
           <Pressable
-            key={m.id}
+            key={v.id}
             accessibilityRole="button"
-            accessibilityState={{ selected: mood === m.id }}
-            onPress={() => setMood(m.id)}
+            accessibilityState={{ selected: scene === v.id }}
+            onPress={() => setScene(v.id)}
             style={{
               padding: 18,
               borderWidth: 1,
-              borderColor: mood === m.id ? "#75aa87" : "#d5e5db",
+              borderColor: scene === v.id ? "#75aa87" : "#d5e5db",
               borderRadius: 15,
-              backgroundColor: mood === m.id ? "#edf7e9" : "white",
+              backgroundColor: scene === v.id ? "#edf7e9" : "white",
             }}
           >
-            <T style={{ fontWeight: "600" }}>{m.label}</T>
-            <T style={s.muted}>{m.description}</T>
+            <T style={{ fontWeight: "600" }}>{v.name}</T>
+            <T style={s.muted}>{v.description}</T>
           </Pressable>
         ))}
       </View>
       <T style={s.muted}>
-        Setu’s expressions reflect app activity, not an assessment of your
-        emotions or health. Urgent messages receive a calm, attentive pose.
+        Artwork and motion: Bambuk Studio. Both original loops are 20 seconds.
+        App activity labels describe the interface, not an assessment of your
+        emotions or health.
       </T>
     </Screen>
   );

@@ -64,7 +64,11 @@ export function PandaStory() {
             <br />
             <em>That’s okay.</em>
           </h2>
-          <PandaStage mood={chapters[chapter].mood} className="story-panda" />
+          <PandaStage
+            mood={chapters[chapter].mood}
+            variant={chapter === 0 ? "jungle" : "meadow"}
+            className="story-panda"
+          />
           <div
             className="panda-chapter-controls"
             role="group"

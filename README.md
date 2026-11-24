@@ -10,30 +10,30 @@ and metrics. Real Mode connects Supabase Auth/PostgreSQL and NVIDIA inference.
 
 ## This workspace's connected setup — 2026-11-21
 
-### Animated Setu companion — 2026-11-24
+### Realistic reference panda — 2026-11-24
 
-The homepage now introduces an original 3D panda with blinking, breathing, a
-welcome wave, pointer-following gaze, a butterfly and a small sage garden. Three
-scroll chapters switch between reading, listening and preparing for a visit.
-The ten-expression gallery is at **http://localhost:5173/app/companion**.
+The geometric panda has been replaced with Bambuk Studio's actual detailed
+panda artwork, original texture atlases and skeletal animations. The two
+20-second authored loops preserve the leaf-crown panda and bow-tie/butterfly
+panda. Original scenery layers accompany them in SDG3's white healthcare UI.
+Open **http://localhost:5173/app/companion** for both scenes, pause controls,
+optional scenery and a frame-by-frame animation timeline.
 
-Compact companions react to chat focus, pending requests, replies and errors.
-Emergency-classified replies use a calm, still pose. Saving a passport or
-finishing a visit checklist gives a small success reaction. These are interface
-states, not inferred emotions or assessments of health. The native app includes
-a lightweight SVG companion and expression gallery linked from home.
+Web chat/task avatars use small animated WebP exports of those same loops;
+native Android uses GIF exports. Reduced motion, text-only, background/offscreen
+handling and still emergency avatars are supported. Ten application activity
+labels remain distinct from the source's two authored animation clips.
 
-Scenes have pause controls, respect OS/app reduced-motion preferences, stop
-rendering offscreen and use vector fallback if WebGL is unavailable. Text-only
-mode removes decorative characters. The 3D renderer is loaded separately from
-the main page. This adds about 138 kB gzip when a 3D scene is requested.
+See [MOTION_STUDY.md](MOTION_STUDY.md) and
+**artifacts/panda-motion-inventory.json** for every authored timeline target and
+keyframe time. Run `node scripts/check-panda-media.cjs` to compare the 25 source
+asset hashes. Current validation and captures are in [VALIDATION.md](VALIDATION.md).
 
-See [MOTION_STUDY.md](MOTION_STUDY.md) for the observed Bambuk homepage motion
-catalogue, scope limits and SDG3 adaptation. The character and geometry are
-original; the reference site's assets are not bundled. Preview captures and a
-short video are in **artifacts/setu-panda-*.png** and
-**artifacts/setu-motion-tour.webm**. Current checks are in
-[VALIDATION.md](VALIDATION.md).
+These are third-party Bambuk assets, not original Setu artwork. Their separate
+redistribution rights have not been verified. Retained attribution and the Spine
+runtime's evaluation/distribution license are in
+**apps/web/public/panda-reference/CREDITS.txt** and
+**SPINE-RUNTIME-LICENSE.txt**. Confirm applicable rights before external release.
 
 ### Accessibility redesign — 2026-11-24
 

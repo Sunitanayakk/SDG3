@@ -1,0 +1,18 @@
+Reference artwork, textures and animations: Bambuk Studio.
+Source: https://bambukstudio.com/ (public homepage assets, inspected 24 November 2026).
+
+The panda rigs, texture atlases, foliage and background were obtained from the
+reference website for the requested local visual implementation. They are
+third-party artwork, not original SwasthyaSetu artwork. A separate redistribution
+license for that artwork was not supplied or verified.
+
+The gallery retains the source's two authored panda animations. The app's camera
+framing, composition, controls and healthcare workflows are separate SDG3 code.
+
+Animation runtime: Esoteric Software Spine WebGL 4.1.55.
+See SPINE-RUNTIME-LICENSE.txt. Evaluation and distribution have different license
+conditions. Distribution must comply with the Spine Runtimes/Editor license.
+https://esotericsoftware.com/spine-runtimes-license
+
+See source-manifest.json for provenance and SHA-256 fingerprints of the
+downloaded source files. posters/WebP/GIF are rendered derivatives of those rigs.
