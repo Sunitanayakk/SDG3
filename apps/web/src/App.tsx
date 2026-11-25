@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { Routes, Route, Navigate, Link, useLocation } from "react-router-dom";
 import { PublicLayout, AdminLayout, PatientLayout } from "./layouts";
 import { Loading } from "./components/ui";
 import {
@@ -32,8 +32,19 @@ import {
   Safety,
 } from "./pages/Admin";
 export default function App() {
+  const location = useLocation();
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense
+      fallback={
+        location.pathname === "/" ? (
+          <div className="nature-boot" role="status">
+            SwasthyaSetu <small>AI</small>
+          </div>
+        ) : (
+          <Loading />
+        )
+      }
+    >
       <Routes>
         <Route element={<PublicLayout />}>
           <Route index element={<Landing />} />

@@ -1,3 +1,53 @@
+# Full viewport animated landing experience — 2026-11-25
+
+Replaced the white card homepage with the complete forest composition for
+SwasthyaSetu: green entry reveal, original background and rig animation,
+scroll-driven foliage/flower/blue scenes, swimming fish, pointer depth movement,
+custom cursor and a full screen navigation menu. Healthcare tools follow on
+green surfaces. This validation applies to the web changes; the dated native
+and backend reports below remain separate.
+
+| Executed check | Result |
+| --- | --- |
+| Web Vitest | 7 passed |
+| Chrome acceptance | 17 passed (35.4 seconds) |
+| Web production build / TypeScript | Passed |
+| Web ESLint | Passed |
+| Original source asset integrity | 36 SHA-256 hashes matched |
+| Left foliage browser conversion | All 3592×2244 decoded RGBA pixels matched; atlas changes only the texture filename |
+| Local desktop / mobile visual capture | Zero page errors at 1519×674 and 390×844 |
+| Recorded local motion tour | Zero page errors |
+| Configured server credentials in built web and candidate source files | No matches in 61 built files and 281 candidate files |
+
+The browser suite verifies advancing pixels and frames, mouse-dependent rendered
+pixels, paused poses, jungle/meadow/blue scroll transitions, offscreen suspension,
+GPU-loss fallback, skipped entry, menu focus trapping and Escape, system reduced
+motion, text-only graphics suppression, 320-pixel enlarged text, and existing
+chat / passport / communication / planner / library / administrator flows.
+Acceptance checks use isolated synthetic Demo Mode data. Visual captures use
+the existing local page. The final texture fix premultiplies alpha once at image
+upload to avoid bright outlines around fur and petals.
+
+Evidence: `artifacts/immersive-{entry,jungle,leaf-wipe,meadow,sky,mobile,navigation,features}.png`
+and `artifacts/immersive-motion-tour.webm`. Machine-readable results are in
+`artifacts/immersive-validation.json`, `immersive-visual-check.json`,
+`immersive-tour-check.json` and `immersive-secret-check.json`.
+The motion catalogue now includes all twelve original rigs. Regenerate it with
+`node scripts/inventory-panda-motion.cjs`.
+
+Desktop uses the long pinned journey; compact screens use a lighter first scene.
+Reduced motion skips entry and pinning, retains the forest, freezes poses and
+disables mouse parallax. Text-only removes decorative asset requests. Explicit
+Pause ambient motion stops autonomous changes while permitting manual scrolling
+and pointer repositioning. The two original authored panda loops remain intact.
+
+The renderer and healthcare page composition are SDG3 code. Original artwork is
+credited to Bambuk Studio; separate redistribution rights remain unverified.
+The Spine runtime license remains included. This is a local implementation,
+not a new public deployment or a claim that every page of the reference website
+is pixel identical. No backend or native changes were made or retested for this
+web-only task. The production build retains two non-fatal Zod annotation warnings.
+
 # Realistic reference panda replacement — 2026-11-24
 
 Browser permission was verified and the reference inspected again. Replaced the

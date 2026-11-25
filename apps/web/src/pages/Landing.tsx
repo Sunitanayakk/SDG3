@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Accessibility,
@@ -6,23 +6,23 @@ import {
   Check,
   Ear,
   Eye,
-  Heart,
   HeartPulse,
   Languages,
   MessageCircle,
   ShieldCheck,
-  Volume2,
 } from "lucide-react";
-import { PandaStage } from "../components/PandaStage";
-import { PandaStory } from "../components/PandaStory";
+import {
+  NatureExperience,
+  NatureReveal,
+  ReplayNature,
+} from "../components/NatureExperience";
 
 const paths = [
   {
     icon: Eye,
     label: "I need clearer text",
-    title: "A little bigger. A lot clearer.",
-    message:
-      "Adjust text size and contrast. Listen when reading feels difficult.",
+    title: "Information you can see. Or hear.",
+    body: "Choose larger text, stronger contrast or device read aloud. Keep the reading experience in your hands.",
     to: "/app/preferences",
     action: "Adjust my reading settings",
   },
@@ -30,17 +30,15 @@ const paths = [
     icon: Ear,
     label: "I prefer to type",
     title: "Your words. Your way.",
-    message:
-      "Show a message at reception. Communicate without needing to speak or hear.",
+    body: "Show a clear message at reception or during a visit. You can communicate without having to speak or hear.",
     to: "/app/communicate",
     action: "Open communication board",
   },
   {
     icon: Accessibility,
     label: "I need easier access",
-    title: "Make the next visit easier.",
-    message:
-      "Prepare your access requests before a visit, with a checklist you can bring along.",
+    title: "A little preparation goes a long way.",
+    body: "Prepare questions about step-free access, seating and assistance. Confirm arrangements with the service before you visit.",
     to: "/app/planner",
     action: "Plan my next visit",
   },
@@ -48,322 +46,259 @@ const paths = [
     icon: Languages,
     label: "My language matters",
     title: "Understanding comes first.",
-    message:
-      "Read short explainers in English, Hindi or Odia, at your own pace.",
+    body: "Read short, source-linked explainers in English, Hindi or Odia. Choose a pace that works for you.",
     to: "/app/library",
     action: "Explore the easy-read library",
   },
 ];
+
 export default function Landing() {
+  const root = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(0);
   const path = paths[selected];
   return (
-    <div className="light-home">
-      <section className="care-hero">
-        <div className="care-hero-copy">
-          <span className="care-kicker">
-            <span className="care-kicker-icon">
-              <Heart size={13} />
-            </span>{" "}
-            ACCESSIBLE HEALTHCARE FOR ALL
+    <div className="nature-home" ref={root}>
+      <NatureReveal root={root} />
+      <NatureExperience />
+      <section className="nature-tools" id="features">
+        <div className="nature-section-heading" data-nature-reveal>
+          <p>Small tools. A real difference.</p>
+          <h2>
+            Make room for
+            <br />
+            <em>every kind of need.</em>
+          </h2>
+          <span>
+            Practical support for before, during and between healthcare visits.
           </span>
-          <h1>
-            Better care starts
-            <br />
-            with being
-            <br />
-            <span>understood.</span>
-            <svg
-              className="heading-swoosh"
-              viewBox="0 0 330 18"
-              aria-hidden="true"
-            >
-              <path d="M4 12 Q155 -4 324 9" />
-            </svg>
-          </h1>
-          <p>
-            Health information in your language. Tools that adapt to your needs.
-            A clearer path to care, for every body and every ability.
-          </p>
-          <div className="hero-buttons">
-            <Link className="button" to="/app/chat">
-              <MessageCircle size={19} />
-              Ask Setu AI
-            </Link>
-            <Link className="button secondary" to="/app/tools">
-              Find your access tools
-            </Link>
-          </div>
-          <div className="hero-reassurance">
-            <span>
-              <ShieldCheck size={16} />
-              Source-linked information
-            </span>
-            <span>
-              <Check size={16} />
-              Free to explore
-            </span>
-          </div>
         </div>
-        <div className="panda-hero">
-          <span className="panda-hero-note">
-            <Heart size={16} /> A little support. A friendly face.
-          </span>
-          <PandaStage mood="welcome" />
-          <div className="panda-hero-links">
-            <Link to="/app/companion">Meet Setu’s expressions</Link>
-            <Link to="/app/chat">Start a conversation</Link>
+        <div className="nature-feature-stack">
+          <Link
+            to="/app/passport"
+            className="nature-feature nature-passport"
+            data-nature-reveal
+            data-cursor="Open passport"
+          >
+            <div className="nature-feature-copy">
+              <Accessibility size={32} />
+              <p>Your needs, in your words</p>
+              <h3>
+                The Accessibility
+                <br />
+                Passport.
+              </h3>
+              <span>
+                Explain how you prefer to communicate and receive help. Print a
+                clear card to bring to your next visit.
+              </span>
+              <strong>Create my passport</strong>
+            </div>
+            <div className="nature-passport-preview" aria-hidden="true">
+              <span>
+                <HeartPulse size={20} /> SWASTHYASETU
+              </span>
+              <small>MY ACCESSIBILITY PASSPORT</small>
+              <h4>
+                Care works better
+                <br />
+                when we understand
+                <br />
+                each other.
+              </h4>
+              <p>How to communicate with me</p>
+              <b>Please write it down.</b>
+              <p>My preferred language</p>
+              <b>English · हिन्दी · ଓଡ଼ିଆ</b>
+              <footer>
+                <Check size={16} />
+                Please ask before assisting me.
+              </footer>
+            </div>
+          </Link>
+          <Link
+            to="/app/communicate"
+            className="nature-feature nature-communication"
+            data-nature-reveal
+            data-cursor="Open board"
+          >
+            <div className="nature-feature-copy">
+              <MessageCircle size={32} />
+              <p>Communicate your way</p>
+              <h3>
+                Find the words.
+                <br />
+                Show the message.
+              </h3>
+              <span>
+                Useful phrases in three languages, a large communication card
+                and optional device read aloud.
+              </span>
+              <strong>Open the Communication Board</strong>
+            </div>
+            <div className="nature-phrase-preview" aria-hidden="true">
+              <span>Please write it down.</span>
+              <span>कृपया धीरे-धीरे समझाइए।</span>
+              <span>ମୋତେ ସାହାଯ୍ୟ ଦରକାର।</span>
+            </div>
+          </Link>
+          <div className="nature-feature-pair" data-nature-reveal>
+            <Link to="/app/planner" className="nature-small-feature">
+              <Check size={28} />
+              <p>One manageable step at a time</p>
+              <h3>
+                Your next visit,
+                <br />a little easier.
+              </h3>
+              <span>
+                A checklist that adapts to your access needs. Save your progress
+                or take a copy with you.
+              </span>
+              <strong>Build my visit plan</strong>
+            </Link>
+            <Link to="/app/library" className="nature-small-feature">
+              <BookOpen size={28} />
+              <p>Clarity, at your pace</p>
+              <h3>
+                Health information,
+                <br />
+                made clearer.
+              </h3>
+              <span>
+                Short explainers with official source links. Read in English,
+                Hindi or Odia, with optional audio.
+              </span>
+              <strong>Open the easy-read library</strong>
+            </Link>
           </div>
         </div>
       </section>
-      <div className="care-values">
-        <span>Built for real-life barriers</span>
-        <span>
-          <Eye size={19} />
-          Visual
-        </span>
-        <span>
-          <Ear size={19} />
-          Hearing
-        </span>
-        <span>
-          <Accessibility size={19} />
-          Mobility
-        </span>
-        <span>
-          <Languages size={19} />
-          Language
-        </span>
-      </div>
-      <PandaStory />
-      <section id="accessibility" className="care-section access-paths">
-        <div className="section-intro">
-          <span className="eyebrow">YOUR ACCESS NEEDS COME FIRST</span>
+      <section className="nature-access" id="accessibility">
+        <div className="nature-section-heading" data-nature-reveal>
+          <p>Your access needs come first</p>
           <h2>
             Different needs.
             <br />
             <em>Equally important.</em>
           </h2>
-          <p>
-            You shouldn’t have to fit the technology. Start with what makes care
-            easier for you.
-          </p>
         </div>
-        <div className="path-demo">
+        <div className="nature-paths" data-nature-reveal>
           <div
-            className="path-options"
+            className="nature-path-options"
             role="group"
             aria-label="Explore accessibility support"
           >
             {paths.map((p, i) => (
               <button
                 key={p.label}
-                aria-pressed={i === selected}
-                className={i === selected ? "active" : ""}
+                aria-pressed={selected === i}
                 onClick={() => setSelected(i)}
               >
-                <p.icon size={21} />
-                {p.label}
-                {i === selected && <Check size={17} />}
+                <p.icon size={23} />
+                <span>{p.label}</span>
+                {selected === i && <Check size={20} />}
               </button>
             ))}
           </div>
-          <div className="path-result" key={selected}>
-            <path.icon size={35} />
+          <div className="nature-path-result" key={selected}>
+            <path.icon size={42} />
             <h3>{path.title}</h3>
-            <p>{path.message}</p>
-            <Link className="button small" to={path.to}>
-              {path.action}
+            <p>{path.body}</p>
+            <Link className="nature-button magnetic" to={path.to}>
+              <span>{path.action}</span>
             </Link>
           </div>
         </div>
       </section>
-      <section id="features" className="care-section feature-section">
-        <div className="section-intro centered">
-          <span className="eyebrow">MORE THAN A CHAT WINDOW</span>
+      <section className="nature-how" id="how-it-works">
+        <div className="nature-section-heading" data-nature-reveal>
+          <p>A clearer path to care</p>
           <h2>
-            A little support.
+            A question.
+            <br />A preference.
             <br />
-            <em>A world of possibility.</em>
+            <em>A useful next step.</em>
           </h2>
+        </div>
+        <div className="nature-how-copy" data-nature-reveal>
+          <ShieldCheck size={34} />
+          <h3>
+            Information with a source.
+            <br />
+            Support with a purpose.
+          </h3>
           <p>
-            Practical tools for before, during and between healthcare visits.
+            Ask Setu for general health education. Explore the linked evidence,
+            read an easy-read guide, or prepare a visit with your own access
+            needs in mind.
           </p>
-        </div>
-        <div className="feature-mosaic">
-          <Link to="/app/passport" className="care-feature passport-feature">
-            <span className="feature-icon">
-              <Accessibility />
-            </span>
-            <span className="feature-tag">TAKE YOUR NEEDS WITH YOU</span>
-            <h3>
-              Your Accessibility
-              <br />
-              Passport.
-            </h3>
-            <p>
-              A printable card for the way you prefer to communicate and receive
-              help. Explain your needs without starting over.
-            </p>
-            <div className="mini-passport" aria-hidden="true">
-              <span>
-                <HeartPulse size={18} /> MY ACCESS CARD
-              </span>
-              <strong>Please write it down.</strong>
-              <small>Preferred language: हिन्दी</small>
-              <div>
-                <Check size={15} />
-                Please ask before assisting me.
-              </div>
-            </div>
-            <span className="feature-link">Create my passport</span>
+          <p>
+            Casual greetings receive a friendly response. Educational questions
+            use reviewed source passages. When evidence is missing, the
+            assistant says so.
+          </p>
+          <Link className="nature-button magnetic" to="/app/chat">
+            <span>Start a conversation</span>
           </Link>
-          <Link to="/app/communicate" className="care-feature talk-feature">
-            <span className="feature-icon">
-              <MessageCircle />
-            </span>
-            <span className="feature-tag">BE HEARD WITHOUT SPEAKING</span>
-            <h3>The Communication Board.</h3>
-            <p>
-              Tap a useful phrase. Show a large message. Let your device read it
-              aloud.
-            </p>
-            <div className="mini-phrases" aria-hidden="true">
-              <span>✍ Please write it down.</span>
-              <span>♡ I need assistance.</span>
-              <span>◷ Please explain slowly.</span>
-            </div>
-            <span className="feature-link">Find my words</span>
-          </Link>
-          <Link to="/app/planner" className="care-feature">
-            <span className="feature-icon">
-              <Check />
-            </span>
-            <h3>Arrive a little more prepared.</h3>
-            <p>
-              A visit checklist that responds to your access needs. Keep your
-              progress and download the next steps.
-            </p>
-            <span className="feature-link">Build my visit plan</span>
-          </Link>
-          <Link to="/app/library" className="care-feature">
-            <span className="feature-icon">
-              <BookOpen />
-            </span>
-            <h3>Understand, at your pace.</h3>
-            <p>
-              Short, source-linked health explainers. Read in three languages or
-              listen with a device voice.
-            </p>
-            <span className="feature-link">Open the easy-read library</span>
-          </Link>
+          <small>
+            General information only. A qualified healthcare professional
+            remains the right person for diagnosis and treatment.
+          </small>
         </div>
       </section>
-      <section id="how-it-works" className="care-section care-steps">
-        <div className="section-intro">
-          <span className="eyebrow">A CLEARER PATH TO CARE</span>
-          <h2>
-            Less friction.
-            <br />
-            <em>More understanding.</em>
-          </h2>
-        </div>
-        <div className="care-steps-grid">
-          {[
-            [
-              Languages,
-              "Make it feel familiar",
-              "Choose your language, reading size and how you prefer to communicate.",
-            ],
-            [
-              MessageCircle,
-              "Find a useful next step",
-              "Ask the assistant, read a short guide or prepare for a consultation.",
-            ],
-            [
-              Heart,
-              "Bring your needs along",
-              "Take your access card and checklist to a real healthcare professional.",
-            ],
-          ].map(([Icon, title, body]) => {
-            const I = Icon as typeof Heart;
-            return (
-              <article key={String(title)}>
-                <span>
-                  <I size={25} />
-                </span>
-                <h3>{String(title)}</h3>
-                <p>{String(body)}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-      <section id="impact" className="care-section care-impact">
+      <section className="nature-impact" id="impact" data-nature-reveal>
+        <span className="nature-sdg">
+          03
+          <HeartPulse size={44} />
+        </span>
         <div>
-          <span className="sdg-square">
-            3
-            <small>
-              GOOD HEALTH
-              <br />
-              AND WELL-BEING
-            </small>
-            <HeartPulse size={30} />
-          </span>
-          <span className="eyebrow">
-            CHALLENGE 08 · ACCESSIBLE HEALTHCARE FOR ALL
-          </span>
+          <p>SDG 3 · Good Health and Well-being</p>
           <h2>
             Access is part
             <br />
             <em>of good health.</em>
           </h2>
-          <p>
-            Designed around SDG 3 and reducing barriers to care. Every feature
-            helps someone see, hear, understand or navigate health information
-            more easily.
-          </p>
-          <p className="caption">
-            A working prototype. No claims of clinical outcomes or guaranteed
-            service availability.
-          </p>
-        </div>
-        <div className="impact-quote">
-          <span aria-hidden="true">“</span>
-          <h3>
-            Care should begin with
-            <br />
-            “How can we help?”
-            <br />
-            Not “Can you use this?”
-          </h3>
-          <div className="row">
-            <ShieldCheck size={21} />
-            <p>
-              General health education.
-              <br />
-              Human care stays at the centre.
-            </p>
-          </div>
+          <span>
+            Built for people facing visual, hearing, mobility or language
+            barriers. The goal is to make information easier to understand and
+            healthcare visits easier to prepare for.
+          </span>
+          <small>
+            A working prototype. Clinical outcomes and service availability are
+            not guaranteed. Hindi and Odia medical translations need
+            professional review.
+          </small>
+          <Link className="nature-text-link" to="/app/resources">
+            Explore official healthcare services
+          </Link>
         </div>
       </section>
-      <section className="care-closing">
-        <span className="eyebrow">A BRIDGE TO UNDERSTANDING</span>
+      <section className="nature-closing" data-nature-reveal>
+        <p>A bridge to understanding</p>
         <h2>
           Care that meets you
           <br />
           <em>where you are.</em>
         </h2>
-        <p>Start with a question, a preference, or one small next step.</p>
-        <div className="hero-buttons">
-          <Link className="button" to="/app/chat">
-            <MessageCircle size={19} />
-            Start a conversation
+        <div className="nature-actions">
+          <Link className="nature-button magnetic" to="/app/chat">
+            <span>Ask Setu AI</span>
           </Link>
-          <Link className="button secondary" to="/app/tools">
-            <Volume2 size={18} />
+          <Link className="nature-text-link" to="/app/tools">
             Explore the access toolkit
           </Link>
+        </div>
+        <div className="nature-scene-credit">
+          <ReplayNature />
+          <span>
+            Reference artwork:{" "}
+            <a
+              href="https://bambukstudio.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Bambuk Studio
+            </a>
+          </span>
         </div>
       </section>
     </div>

@@ -1,13 +1,21 @@
 Reference artwork, textures and animations: Bambuk Studio.
-Source: https://bambukstudio.com/ (public homepage assets, inspected 24 November 2026).
+Source: https://bambukstudio.com/ (public homepage assets, inspected 24 and 25 November 2026).
 
 The panda rigs, texture atlases, foliage and background were obtained from the
 reference website for the requested local visual implementation. They are
 third-party artwork, not original SwasthyaSetu artwork. A separate redistribution
 license for that artwork was not supplied or verified.
 
-The gallery retains the source's two authored panda animations. The app's camera
-framing, composition, controls and healthcare workflows are separate SDG3 code.
+The gallery and full-screen landing journey retain the source's two authored
+panda animations. The landing also uses its forest/sky, foliage, flowers, fish
+and muted intro texture. The page's rendering, scroll composition, mouse
+interaction, accessible controls and healthcare workflows are separate SDG3 code.
+No downloaded vendor JavaScript is executed or included in the application.
+
+The left foliage KTX2 was decoded with the official Three.js Basis transcoder
+and re-encoded as lossless WebP for the Spine browser image loader. Its decoded
+RGBA pixels match exactly. The compatible atlas changes only the image filename.
+The original KTX2 and atlas remain alongside the derivatives for provenance.
 
 Animation runtime: Esoteric Software Spine WebGL 4.1.55.
 See SPINE-RUNTIME-LICENSE.txt. Evaluation and distribution have different license

@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-11-25",
+  "pageErrors": [],
+  "desktop": {
+    "width": 1519,
+    "height": 674
+  },
+  "mobile": {
+    "width": 390,
+    "height": 844
+  },
+  "files": [
+    "artifacts/immersive-entry.png",
+    "artifacts/immersive-jungle.png",
+    "artifacts/immersive-leaf-wipe.png",
+    "artifacts/immersive-meadow.png",
+    "artifacts/immersive-sky.png",
+    "artifacts/immersive-navigation.png",
+    "artifacts/immersive-mobile.png"
+  ]
+}

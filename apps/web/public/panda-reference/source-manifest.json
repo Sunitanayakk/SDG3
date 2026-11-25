@@ -153,12 +153,87 @@
       "url": "https://bambukstudio.com/images/scene/scene-bg.avif",
       "sha256": "7545cd558975571b8e4c1898588084bee94f1aa2f9742312fdcaef34383c50cb",
       "bytes": 111929
+    },
+    {
+      "file": "leafs-left.json",
+      "url": "https://bambukstudio.com/scenes/leafs-left.json",
+      "sha256": "e1e44b80a71746b568d860698a4b91a2c8a45a3888458a7b23cc22998979da1f",
+      "bytes": 122782
+    },
+    {
+      "file": "leafs-left.atlas",
+      "url": "https://bambukstudio.com/scenes/leafs-left.atlas",
+      "sha256": "acad0adbf27dd029967c2186e394502dea0d5015e6027911c0e162a0d13caccb",
+      "bytes": 438
+    },
+    {
+      "file": "leafs-left.ktx2",
+      "url": "https://bambukstudio.com/scenes/leafs-left.ktx2",
+      "sha256": "1bb1460570c2891d2be7e086a8b5e3abac0d973392b0b6775051608ede3d9b71",
+      "bytes": 557060
+    },
+    {
+      "file": "fish1.json",
+      "url": "https://bambukstudio.com/fishes/fish1.json",
+      "sha256": "bde5c5b46cd8fba59fbce3150d9c2bc20dc86d129396d89bf501ab008588ff16",
+      "bytes": 49790
+    },
+    {
+      "file": "fish2.json",
+      "url": "https://bambukstudio.com/fishes/fish2.json",
+      "sha256": "5b2a9eb794fc6523278d7bfdb7abf756adf778bb345b60efd9687f7a7271fcf9",
+      "bytes": 48996
+    },
+    {
+      "file": "fish3.json",
+      "url": "https://bambukstudio.com/fishes/fish3.json",
+      "sha256": "778d902c7625aea1b968e675f4be067ec69a3fdea628edae33ec147c49df416d",
+      "bytes": 79850
+    },
+    {
+      "file": "fishes.atlas",
+      "url": "https://bambukstudio.com/fishes/fishes.atlas",
+      "sha256": "afe383c6eb4740bb77d069437efba48f323c9d24ab9232cd5dcdcda0b595458c",
+      "bytes": 307
+    },
+    {
+      "file": "fishes.avif",
+      "url": "https://bambukstudio.com/fishes/fishes.avif",
+      "sha256": "7229a0505abb1797320e31cf6a1efb0829c132b848c4c98ba21bc1d78d8315d9",
+      "bytes": 85201
+    },
+    {
+      "file": "leaf-bottom-left-2.avif",
+      "url": "https://bambukstudio.com/images/scene/leaf-bottom-left-2.avif",
+      "sha256": "dbb934773a47940d80d9a22e3f8d0b3faabd1ad064ab4c9f178fab561cf5c2e7",
+      "bytes": 150573
+    },
+    {
+      "file": "leaf-bottom-right-2.avif",
+      "url": "https://bambukstudio.com/images/scene/leaf-bottom-right-2.avif",
+      "sha256": "6eaffb07bc3d66e055a4e97940b53b21dbfd58b01aaf2dbd256be2c16da95f29",
+      "bytes": 93143
+    },
+    {
+      "file": "intro.mp4",
+      "url": "https://bambukstudio.com/preloader-av1.mp4",
+      "sha256": "0324698956b17585144483e6f8904322b2ca65646be4eee22577430e6fb445ce",
+      "bytes": 137723
     }
   ],
   "generated": {
     "posters": "Frames rendered from the original rigs",
     "webAvatars": "160x176 animated WebP, 10 fps, 20 seconds",
-    "androidAvatars": "192x211 GIF, 10 fps, 20 seconds"
+    "androidAvatars": "192x211 GIF, 10 fps, 20 seconds",
+    "leftFoliage": {
+      "file": "leafs-left.webp",
+      "source": "leafs-left.ktx2",
+      "method": "Official Three.js 0.180.0 Basis transcoder KTX2 to RGBA32, then lossless WebP with exact transparent RGB preservation",
+      "rgbaPixels": "3592 x 2244",
+      "atlas": "leafs-left-web.atlas changes only the texture filename"
+    }
   },
-  "rights": "Artwork belongs to Bambuk Studio. No redistribution license for the artwork was supplied. Spine runtime use and distribution are governed by SPINE-RUNTIME-LICENSE.txt."
+  "rights": "Artwork belongs to Bambuk Studio. No redistribution license for the artwork was supplied. Spine runtime use and distribution are governed by SPINE-RUNTIME-LICENSE.txt.",
+  "lastInspected": "2026-11-25",
+  "implementation": "Own SDG3 full-viewport composition and WebGL renderer; original skeletal animation curves retained. Downloaded vendor JavaScript is not shipped or executed."
 }

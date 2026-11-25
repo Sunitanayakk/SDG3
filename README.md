@@ -10,12 +10,26 @@ and metrics. Real Mode connects Supabase Auth/PostgreSQL and NVIDIA inference.
 
 ## This workspace's connected setup — 2026-11-21
 
+### Full animated landing experience — 2026-11-25
+
+Open **http://localhost:5173/** for the full viewport Bambuk reference scene with
+SwasthyaSetu content: green entry reveal, original forest, detailed panda loops,
+moving foliage, blurred leaf sweeps, staggered flowers, swimming fish, cursor
+hover and depth parallax. The healthcare tools follow on green surfaces.
+
+Desktop scrolling drives the forest-to-meadow-to-blue journey. Compact screens
+use a lighter scene. Skip intro, Pause ambient motion, full screen keyboard
+navigation, reduced motion, text-only and original-image graphics fallbacks are
+supported. [MOTION_STUDY.md](MOTION_STUDY.md) explains the implementation and
+reference match; [VALIDATION.md](VALIDATION.md) records current web checks.
+
 ### Realistic reference panda — 2026-11-24
 
 The geometric panda has been replaced with Bambuk Studio's actual detailed
 panda artwork, original texture atlases and skeletal animations. The two
 20-second authored loops preserve the leaf-crown panda and bow-tie/butterfly
-panda. Original scenery layers accompany them in SDG3's white healthcare UI.
+panda. Original scenery layers accompany them in the companion gallery; the
+homepage now uses the full forest experience described above.
 Open **http://localhost:5173/app/companion** for both scenes, pause controls,
 optional scenery and a frame-by-frame animation timeline.
 
@@ -26,7 +40,7 @@ labels remain distinct from the source's two authored animation clips.
 
 See [MOTION_STUDY.md](MOTION_STUDY.md) and
 **artifacts/panda-motion-inventory.json** for every authored timeline target and
-keyframe time. Run `node scripts/check-panda-media.cjs` to compare the 25 source
+keyframe time. Run `node scripts/check-panda-media.cjs` to compare the 36 source
 asset hashes. Current validation and captures are in [VALIDATION.md](VALIDATION.md).
 
 These are third-party Bambuk assets, not original Setu artwork. Their separate

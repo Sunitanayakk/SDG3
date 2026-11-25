@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -34,12 +34,59 @@ import { useSetu } from "./context";
 export function PublicLayout() {
   const [open, setOpen] = useState(false);
   const loc = useLocation();
+  const immersive = loc.pathname === "/";
+  const navigation = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open || !immersive) return;
+    const previous = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const focusable = () =>
+      [
+        ...(navigation.current?.querySelectorAll<HTMLElement>(
+          "a,button,select",
+        ) || []),
+      ].filter((el) => el.getBoundingClientRect().height > 0);
+    navigation.current?.querySelector<HTMLElement>(".nav-links a")?.focus();
+    const keys = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const elements = focusable(),
+        first = elements[0],
+        last = elements.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      }
+      if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    window.addEventListener("keydown", keys);
+    return () => {
+      document.body.style.overflow = overflow;
+      window.removeEventListener("keydown", keys);
+      previous?.focus();
+    };
+  }, [open, immersive]);
   return (
-    <>
+    <div className={immersive ? "immersive-public" : undefined}>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <nav className="public-nav">
+      <nav
+        ref={navigation}
+        className={`public-nav ${open && immersive ? "nature-menu-open" : ""}`}
+        role={open && immersive ? "dialog" : undefined}
+        aria-modal={open && immersive ? true : undefined}
+        aria-label={
+          open && immersive ? "Explore SwasthyaSetu" : "Main navigation"
+        }
+      >
         <Brand />
         <div className={`nav-links ${open ? "open" : ""}`}>
           {[
@@ -73,11 +120,13 @@ export function PublicLayout() {
           </button>
         </div>
       </nav>
-      <main id="main" key={loc.pathname}>
+      <main id="main" key={loc.pathname} inert={open && immersive}>
         <Outlet />
       </main>
-      <Footer />
-    </>
+      <div inert={open && immersive}>
+        <Footer />
+      </div>
+    </div>
   );
 }
 function Footer() {

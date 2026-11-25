@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-25",
+  "scope": "Full viewport web landing experience, validated in the working tree before commit",
+  "webVitest": { "passed": 7, "failed": 0 },
+  "chromeAcceptance": { "passed": 17, "failed": 0, "seconds": 35.4, "mode": "isolated synthetic demo data" },
+  "webProductionBuild": "passed",
+  "webTypeScript": "passed through production build",
+  "webESLint": "passed",
+  "sourceAssets": { "originalFiles": 36, "sha256Matches": 36, "rigs": 12 },
+  "leftFoliageConversion": {
+    "losslessDecodedRGBA": true,
+    "size": [3592, 2244],
+    "rgbaSHA256": "85c080125ad1a2d937ab2258becc20ca8bda3a10fbe617dcd94ba34aaa8f60b7",
+    "atlasOnlyFilenameChanged": true
+  },
+  "visualCapture": {
+    "pageErrors": [],
+    "desktop": [1519, 674],
+    "mobile": [390, 844],
+    "report": "artifacts/immersive-visual-check.json"
+  },
+  "motionTour": { "pageErrors": [], "file": "artifacts/immersive-motion-tour.webm", "bytes": 5304604 },
+  "credentialScan": { "configuredServerCredentialsAbsent": true, "report": "artifacts/immersive-secret-check.json" },
+  "reference": "https://bambukstudio.com/",
+  "originalPandaLoops": "Two authored 20-second animations retained; not ten independently authored emotions",
+  "implementation": "Own React/CSS/WebGL composition and pointer/scroll behavior; downloaded vendor JavaScript is not executed or shipped",
+  "limits": [
+    "Compact screens intentionally use a lighter scene without desktop pinning",
+    "No new public deployment was performed",
+    "Separate Bambuk artwork redistribution rights were not supplied or verified; attribution and Spine runtime license retained",
+    "Backend and native code were unchanged and not retested for this web task",
+    "Two non-fatal existing Zod Rollup annotation warnings remain"
+  ]
+}

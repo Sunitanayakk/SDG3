@@ -102,35 +102,131 @@ test.describe("original realistic panda", () => {
     const start = await frames(page);
     await expect.poll(() => frames(page)).toBeGreaterThan(start + 3);
   });
-  test("scroll chapters switch original scenes and offscreen rendering stops", async ({
+  test("full viewport scene responds to the pointer, changes with scroll and stops offscreen", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 950 });
     await page.goto("/");
-    const hero = page.locator(".panda-hero .panda-stage");
+    const hero = page.locator(".nature-world");
     await expect(hero).toHaveAttribute("data-renderer", "webgl", {
       timeout: 30000,
     });
-    const scene = hero.locator(".panda-scene-mount");
-    for (const [index, name] of ["jungle", "meadow", "meadow"].entries()) {
+    await expect(page.locator(".nature-journey")).toHaveAttribute(
+      "data-entered",
+      "true",
+      { timeout: 10000 },
+    );
+    const scene = hero.locator(".nature-rig");
+    await expect(scene).toHaveAttribute("data-scene", "jungle");
+    const readFrames = () =>
+      scene.evaluate((el) => Number((el as HTMLElement).dataset.frameCount));
+    const digest = () =>
+      scene
+        .locator("canvas")
+        .evaluate((el) => (el as HTMLCanvasElement).toDataURL());
+    await page.getByRole("button", { name: "Pause ambient motion" }).click();
+    await expect(hero).toHaveAttribute("data-paused", "true");
+    await page.waitForTimeout(100);
+    const paused = await readFrames();
+    await page.waitForTimeout(250);
+    expect(await readFrames()).toBe(paused);
+    await page.mouse.move(100, 250);
+    const left = await digest();
+    await page.mouse.move(1350, 500);
+    expect(await digest()).not.toBe(left);
+    await page.getByRole("button", { name: "Resume ambient motion" }).click();
+    await expect.poll(readFrames).toBeGreaterThan(paused + 3);
+    for (const [progress, name] of [
+      [0.6, "meadow"],
+      [0.94, "sky"],
+    ] as const) {
       await page
-        .locator(`.panda-chapters article[data-chapter="${index}"]`)
-        .scrollIntoViewIfNeeded();
-      await expect(page.locator(".story-panda")).toHaveAttribute(
-        "data-scene",
-        name,
-      );
+        .locator(".nature-journey")
+        .evaluate(
+          (el, p) =>
+            window.scrollTo(
+              0,
+              (el as HTMLElement).offsetTop +
+                (el.clientHeight - innerHeight) * p,
+            ),
+          progress,
+        );
+      await expect(scene).toHaveAttribute("data-scene", name, {
+        timeout: 10000,
+      });
+      await expect
+        .poll(async () => Number(await scene.getAttribute("data-progress")))
+        .toBeGreaterThan(progress - 0.02);
     }
+    await page.locator(".nature-tools").scrollIntoViewIfNeeded();
     await page.waitForTimeout(150);
     const stopped = await scene.getAttribute("data-frame-count");
     await page.waitForTimeout(300);
     expect(await scene.getAttribute("data-frame-count")).toBe(stopped);
-    await page.getByRole("button", { name: "Understand", exact: true }).click();
-    await expect(page.locator(".story-panda")).toHaveAttribute(
-      "data-scene",
-      "jungle",
-    );
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(scene).toHaveAttribute("data-scene", "jungle", {
+      timeout: 10000,
+    });
+    await scene
+      .locator("canvas")
+      .dispatchEvent("webglcontextlost", { cancelable: true });
+    await expect(hero).toHaveAttribute("data-renderer", "poster");
+    await expect(scene.locator("canvas")).toHaveCount(0);
+    await expect(hero.locator(".nature-poster")).toBeVisible();
   });
+  test("the entrance can be skipped and the full screen navigation works with a keyboard", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 950 });
+    await page.goto("/");
+    const entry = page.getByRole("status", { name: "Opening SwasthyaSetu" });
+    await expect(entry).toBeVisible();
+    await expect(entry).toHaveCSS("background-color", "rgb(25, 47, 27)");
+    await page.getByRole("button", { name: "Skip intro" }).click();
+    await expect(entry).toHaveCount(0);
+    const menu = page.getByRole("button", { name: "Open navigation" });
+    await menu.click();
+    const dialog = page.getByRole("dialog", { name: "Explore SwasthyaSetu" });
+    await expect(dialog).toBeVisible();
+    await expect(page.locator("main")).toHaveAttribute("inert", "");
+    for (let i = 0; i < 14; i++) {
+      await page.keyboard.press("Tab");
+      expect(
+        await dialog.evaluate((el) => el.contains(document.activeElement)),
+      ).toBe(true);
+    }
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+    await expect(menu).toBeFocused();
+    await expect(page.locator("main")).not.toHaveAttribute("inert", "");
+  });
+});
+
+test("reduced motion retains the full background without a pinned journey or pointer motion", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 950 });
+  await page.goto("/");
+  const world = page.locator(".nature-world"),
+    scene = page.locator(".nature-rig");
+  await expect(page.locator(".nature-entry")).toHaveCount(0);
+  await expect(world).toHaveAttribute("data-renderer", "webgl", {
+    timeout: 30000,
+  });
+  expect(
+    await page.locator(".nature-journey").evaluate((el) => el.clientHeight),
+  ).toBeLessThanOrEqual(951);
+  await expect(
+    page.getByRole("button", { name: "Pause ambient motion" }),
+  ).toBeDisabled();
+  const read = () =>
+    scene
+      .locator("canvas")
+      .evaluate((el) => (el as HTMLCanvasElement).toDataURL());
+  const initial = await read();
+  await page.mouse.move(1200, 400);
+  await page.waitForTimeout(250);
+  expect(await read()).toBe(initial);
 });
 test("system reduced motion freezes frames while retaining scene selection", async ({
   page,
@@ -178,6 +274,11 @@ test("text-only avoids graphics and scene controls fit enlarged text at small wi
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(width);
   }
+  expect(mediaRequests).toEqual([]);
+  await page.goto("/");
+  await expect(page.locator(".nature-world")).toHaveCount(0);
+  await expect(page.locator(".nature-entry")).toHaveCount(0);
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   expect(mediaRequests).toEqual([]);
 });
 test("chat activity updates the real avatar and urgent guidance uses a still", async ({
